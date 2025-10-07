@@ -6,6 +6,9 @@ on:
       folderName:
         description: "Folder name to create"
         required: true
+      files:
+        description: "Base64 or JSON encoded files object"
+        required: true
 
 jobs:
   create-and-deploy:
