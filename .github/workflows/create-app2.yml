@@ -35,7 +35,7 @@ jobs:
             console.log(fullPath);
             fs.mkdirSync(path.dirname(fullPath), { recursive: true });
             const content = Buffer.from(contentBase64, "base64").toString("utf8");
-            console.log('content:',content);
+            console.log("content:",content);
             fs.writeFileSync(fullPath, content, "utf8");
             console.log("✅ Created:", fullPath);
           }
