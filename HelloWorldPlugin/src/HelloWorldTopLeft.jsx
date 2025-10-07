@@ -1,0 +1,1 @@
+"import React from 'react';\nimport './HelloWorldTopLeft.css';\n\nconst HelloWorldTopLeft = () => {\n  return (\n    <div className=\"hello-world-top-left-container\">\n      <span className=\"hello-world-top-left-text\">Hello World</span>\n    </div>\n  );\n};\n\nexport default HelloWorldTopLeft;"
