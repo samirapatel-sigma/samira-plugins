@@ -19,5 +19,10 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v5
 
+      - name: Create folder and decode files
+        run: |
+          mkdir -p "${{ github.event.inputs.folderName }}"
+          echo "create directory ${{ github.event.inputs.folderName }}"
+
       - name: output
         run: echo "hello world"
