@@ -44,6 +44,7 @@ jobs:
             fs.writeFileSync(fullPath, content, "utf8");
             console.log("✅ Created:", fullPath);
           }
+          rm -r temp.json
           '
         env:
           FOLDER: ${{ github.event.inputs.folderName }}
