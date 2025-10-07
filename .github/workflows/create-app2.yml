@@ -23,15 +23,7 @@ jobs:
         run: |
           mkdir -p "${{ github.event.inputs.folderName }}"
           echo "create directory ${{ github.event.inputs.folderName }}"
-          echo "${{ github.event.inputs.files }}" > temp.json
-          node -e '
-          const fs = require("fs");
-          const path = require("path");
-          const folder = process.env.FOLDER;
-          const raw = fs.readFileSync("temp.json", "utf8").trim();
-          const files = JSON.parse(raw);
-          echo "${{ raw }}"
-          '
+          
         env:
           FOLDER: ${{ github.event.inputs.folderName }}
 
