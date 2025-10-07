@@ -1,0 +1,60 @@
+name: Create and Deploy App
+
+on:
+  workflow_dispatch:
+    inputs:
+      folderName:
+        description: "Folder name to create"
+        required: true
+      files:
+        description: "Base64 or JSON encoded files object"
+        required: true
+
+jobs:
+  create-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Create folder and decode files
+        run: |
+          mkdir -p "${{ github.event.inputs.folderName }}"
+          echo "${{ github.event.inputs.files }}" > temp.json
+          node -e '
+          const fs = require("fs");
+          const files = JSON.parse(fs.readFileSync("temp.json", "utf8"));
+          const base = process.env.FOLDER;
+          for (const [path, content] of Object.entries(files)) {
+            const full = `${base}/${path}`;
+            fs.mkdirSync(require("path").dirname(full), { recursive: true });
+            fs.writeFileSync(full, content);
+          }' 
+        env:
+          FOLDER: ${{ github.event.inputs.folderName }}
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "Add ${{ github.event.inputs.folderName }}"
+          git push
+
+      # Optional: Deploy to GitHub Pages
+      - name: Upload artifact for Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ${{ github.event.inputs.folderName }}/dist
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Output URL
+        run: echo "App deployed at: ${{ steps.deployment.outputs.page_url }}"
