@@ -26,6 +26,8 @@ jobs:
           echo "${{ github.event.inputs.files }}" > temp.json
           node -e '
           const fs = require("fs");
+          const fileContents = fs.readFileSync("temp.json", "utf8");
+          echo "${{ fileContents }}"
           '
           
         env:
