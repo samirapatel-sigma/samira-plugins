@@ -23,6 +23,11 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v5
 
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
       - name: Create folder and decode files
         run: |
           mkdir -p "${{ github.event.inputs.folderName }}"
@@ -55,6 +60,10 @@ jobs:
           git add .
           git commit -m "Add ${{ github.event.inputs.folderName }}"
           git push
+
+      - name: Install dependencies
+        working-directory: ${{ github.event.inputs.folderName }}
+        run: npm ci
 
       - name: output
         run: echo "hello world"
