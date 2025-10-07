@@ -65,5 +65,9 @@ jobs:
         working-directory: ${{ github.event.inputs.folderName }}
         run: npm install
 
+      - name: Build project
+        working-directory: ${{ github.event.inputs.folderName }}
+        run: npm run build
+
       - name: output
         run: echo "hello world"
