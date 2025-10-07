@@ -29,6 +29,7 @@ jobs:
           const fileContents = fs.readFileSync("temp.json", "utf8");
           const decoded = Buffer.from(fileContents, "base64").toString("utf8");
           const files = JSON.parse(decoded);
+          console.log(files);
           '
           
         env:
