@@ -23,7 +23,7 @@ jobs:
         run: |
           mkdir -p "${{ github.event.inputs.folderName }}"
           echo "create directory ${{ github.event.inputs.folderName }}"
-          echo "${{ github.event.inputs.files }}" > temp.json
+          echo "${{ github.event.inputs.files }}"
 
       - name: output
         run: echo "hello world"
