@@ -1,0 +1,17 @@
+name: Create and Deploy App
+description: create and deploy plugin code
+on:
+  workflow_dispatch:
+    # Allow manual runs
+
+jobs:
+  create-and-deploy:
+    name: Create and deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v5
+
+      - name: output
+        run: echo "hello world"
