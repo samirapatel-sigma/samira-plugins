@@ -1,1 +1,11 @@
-"import './App.css';\n\nfunction App() {\n  return (\n    <div className=\"blue-box\">\n      Hello World\n    </div>\n  );\n}\n\nexport default App;"
+import './App.css';
+
+function App() {
+  return (
+    <div className="blue-box">
+      Hello World
+    </div>
+  );
+}
+
+export default App;
