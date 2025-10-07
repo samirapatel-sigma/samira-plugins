@@ -23,7 +23,22 @@ jobs:
         run: |
           mkdir -p "${{ github.event.inputs.folderName }}"
           echo "create directory ${{ github.event.inputs.folderName }}"
-          echo "${{ github.event.inputs.files }}"
+          echo "${{ github.event.inputs.files }}" > temp.json
+          node -e '
+          const fs = require("fs");
+          const path = require("path");
+          const folder = process.env.FOLDER;
+          const raw = fs.readFileSync("temp.json", "utf8").trim();
+          const files = JSON.parse(raw);
+          for (const [filePath, base64] of Object.entries(files)) {
+            const fullPath = path.join(folder, filePath);
+            fs.mkdirSync(path.dirname(fullPath), { recursive: true });
+            const content = Buffer.from(base64, "base64").toString("utf8");
+            fs.writeFileSync(fullPath, content, "utf8");
+            console.log("✅ Created:", fullPath);
+          }'
+        env:
+          FOLDER: ${{ github.event.inputs.folderName }}
 
       - name: output
         run: echo "hello world"
