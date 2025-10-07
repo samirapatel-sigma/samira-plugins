@@ -63,7 +63,7 @@ jobs:
 
       - name: Install dependencies
         working-directory: ${{ github.event.inputs.folderName }}
-        run: npm ci
+        run: npm install
 
       - name: output
         run: echo "hello world"
