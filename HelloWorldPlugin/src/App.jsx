@@ -1,0 +1,1 @@
+"import './App.css';\n\nfunction App() {\n  return (\n    <div className=\"blue-box\">\n      Hello World\n    </div>\n  );\n}\n\nexport default App;"
