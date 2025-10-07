@@ -2,7 +2,10 @@ name: Create and Deploy App
 description: create and deploy plugin code
 on:
   workflow_dispatch:
-    # Allow manual runs
+    inputs:
+      folderName:
+        description: "Folder name to create"
+        required: true
 
 jobs:
   create-and-deploy:
