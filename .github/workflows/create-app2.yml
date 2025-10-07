@@ -27,7 +27,8 @@ jobs:
           node -e '
           const fs = require("fs");
           const fileContents = fs.readFileSync("temp.json", "utf8");
-          console.log(JSON.parse(fileContents));
+          const decoded = Buffer.from(fileContents, "base64").toString("utf8");
+          console.log(decoded);
           '
           
         env:
