@@ -1,5 +1,6 @@
 name: Create and Deploy App
 description: create and deploy plugin code
+run-name: Deploy Triggered - ID - ${{ github.event.inputs.runKey }}
 on:
   workflow_dispatch:
     inputs:
