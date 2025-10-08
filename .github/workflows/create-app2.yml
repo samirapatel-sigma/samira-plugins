@@ -63,6 +63,22 @@ jobs:
           git commit -m "Add ${{ github.event.inputs.folderName }}"
           git push
 
+      - name: Inject correct Vite base path
+        run: |
+          CONFIG_PATH="${{ github.event.inputs.folderName }}/vite.config.js"
+          if [ -f "$CONFIG_PATH" ]; then
+            sed -i "s|base: .*|base: '/${{ github.repository }}/'|" "$CONFIG_PATH" || true
+            sed -i "s|base: ''|base: '/${{ github.repository }}/'|" "$CONFIG_PATH" || true
+          else
+            echo "import { defineConfig } from 'vite'
+                  import react from '@vitejs/plugin-react'
+                  export default defineConfig({
+                    plugins: [react()],
+                    base: '/${{ github.repository }}/${{ github.event.inputs.folderName }}/',
+                  })
+                  " > "$CONFIG_PATH"
+          fi
+
       - name: Install dependencies
         working-directory: ${{ github.event.inputs.folderName }}
         run: npm install
