@@ -1,0 +1,27 @@
+.pivot-table {
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 600px;
+  background: #fff;
+  box-shadow: 0 1px 4px #ddd;
+  margin-bottom: 2rem;
+}
+.pivot-table th, .pivot-table td {
+  border: 1px solid #aac;
+  padding: 0.5rem 1rem;
+  text-align: right;
+  font-size: 1rem;
+}
+.pivot-table th {
+  background: #f2f4fa;
+}
+.pivot-table tbody tr:nth-child(even) {
+  background: #f8fafd;
+}
+.pivot-table td:first-child, .pivot-table th:first-child {
+  text-align: left;
+  font-weight: bold;
+}
+.pivot-table tfoot {
+  background: #e8eef9;
+}
