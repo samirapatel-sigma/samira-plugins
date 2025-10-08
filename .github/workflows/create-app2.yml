@@ -1,4 +1,4 @@
-name: Create and Deploy App
+name: Create and Deploy App for ${{ inputs.folderName }} (${{ inputs.runKey }})
 description: create and deploy plugin code
 on:
   workflow_dispatch:
