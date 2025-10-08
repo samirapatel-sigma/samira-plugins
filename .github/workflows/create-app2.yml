@@ -110,7 +110,7 @@ jobs:
 
       - name: Save deploy URL to file
         run: |
-          echo "${{ steps.deploy.outputs.page_url }}" > deployed_url.txt
+          echo "${{ steps.deploy.outputs.page_url }}${{ github.event.inputs.folderName }}" > deployed_url.txt
         shell: bash
 
       - name: Upload deploy URL as artifact
