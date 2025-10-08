@@ -66,7 +66,6 @@ jobs:
       - name: Install dependencies
         working-directory: ${{ github.event.inputs.folderName }}
         run: |
-          cd "${{ github.event.inputs.folderName }}"
           npm install
           npm run build
 
