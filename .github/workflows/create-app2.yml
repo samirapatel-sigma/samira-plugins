@@ -21,6 +21,7 @@ jobs:
       id-token: write
     environment:
       name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v5
@@ -72,30 +73,14 @@ jobs:
 
       - name: Deploy to new branch
         run: |
-          DEPLOY_BRANCH="deploy-${{ github.event.inputs.folderName }}"
-          git fetch origin
-          if git show-ref --verify --quiet "refs/heads/$DEPLOY_BRANCH"; then
-            git checkout "$DEPLOY_BRANCH"
-          else
-            git checkout --orphan "$DEPLOY_BRANCH"
-          fi
-
-          # Remove all existing files from the branch
-          git rm -rf . || true
-
-          # Copy built dist/ files into root of deploy branch
-          cp -r "${{ github.event.inputs.folderName }}/dist/." .
-          touch .nojekyll  # disable Jekyll for GitHub Pages
-
-          # Commit the built files
-          git add .
-          git commit -m "Deploy build for ${{ github.event.inputs.folderName }}"
-          git push origin HEAD --force
+          mkdir -p _site
+          cp -r ./${{ github.event.inputs.folderName }}/dist _site/${{ github.event.inputs.folderName }}
+          
 
       - name: Upload artifact for Pages
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ${{ github.event.inputs.folderName }}/dist
+          path: '_site'
 
       # - name: Deploy to GitHub Pages
       #   id: deployment
