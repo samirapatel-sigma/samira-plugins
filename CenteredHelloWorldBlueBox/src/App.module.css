@@ -1,0 +1,13 @@
+.centerBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #2176ff;
+}
+
+.text {
+  color: #fff;
+  font-size: 2rem;
+  font-weight: bold;
+}
