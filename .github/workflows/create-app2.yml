@@ -14,7 +14,7 @@ on:
 
 jobs:
   create-and-deploy:
-    name: Create and deploy
+    name: Create and deploy for ${{ inputs.folderName }} (${{ inputs.runKey }})
     runs-on: ubuntu-latest
     timeout-minutes: 30
     permissions:
