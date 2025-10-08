@@ -83,6 +83,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: ${{ github.event.inputs.folderName }}/dist
+          destination-directory: ${{ github.event.inputs.folderName }}
 
       - name: Deploy to GitHub Pages
         id: deployment
