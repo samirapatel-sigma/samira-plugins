@@ -92,11 +92,10 @@ jobs:
           git commit -m "Deploy build for ${{ github.event.inputs.folderName }}"
           git push origin HEAD --force
 
-      # - name: Upload artifact for Pages
-      #   uses: actions/upload-pages-artifact@v3
-      #   with:
-      #     path: ./${{ github.event.inputs.folderName }}/dist
-      #     destination-directory: ${{ github.event.inputs.folderName }}
+      - name: Upload artifact for Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ${{ github.event.inputs.folderName }}/dist
 
       # - name: Deploy to GitHub Pages
       #   id: deployment
@@ -107,11 +106,7 @@ jobs:
         
       - name: Deploy to GitHub Pages
         id: deploy
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: "deploy-${{ github.event.inputs.folderName }}"
-          folder: .
+        uses: actions/deploy-pages@v4
 
       - name: Save deploy URL to file
         run: |
