@@ -89,4 +89,4 @@ jobs:
         uses: actions/deploy-pages@v4
 
       - name: output
-        run: echo "App deployed at: ${{ steps.deployment.outputs.page_url }}"
+        run: echo "App deployed at ${{ steps.deployment.outputs.page_url }}"
