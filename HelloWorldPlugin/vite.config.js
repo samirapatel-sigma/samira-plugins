@@ -3,5 +3,5 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  base: '/${{ github.repository }}/${{ github.event.inputs.folderName }}/',
+  base: '/samira-plugins/HelloWorldPlugin/',
 })
