@@ -79,7 +79,7 @@ jobs:
           git commit -m "Add ${{ github.event.inputs.folderName }}" || echo "No changes to commit"
           git push origin HEAD:${{ github.ref }}
 
-      - name: Upload pages artifact
+      - name: Upload artifact for Pages
         uses: actions/upload-pages-artifact@v3
         with:
           path: ${{ github.event.inputs.folderName }}/dist
