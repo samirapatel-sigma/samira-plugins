@@ -77,5 +77,14 @@ jobs:
           git commit -m "Add ${{ github.event.inputs.folderName }}" || echo "No changes to commit"
           git push origin HEAD:${{ github.ref }}
 
+      - name: Upload pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ${{ github.event.inputs.folderName }}/dist
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
       - name: output
         run: echo "hello world"
