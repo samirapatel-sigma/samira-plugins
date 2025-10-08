@@ -9,6 +9,8 @@ on:
       files:
         description: "Base64 or JSON encoded files object"
         required: true
+      runKey:
+        required: true
 
 jobs:
   create-and-deploy:
@@ -23,6 +25,9 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      - name: Log run key
+        run: echo "Run key - ${{ inputs.runKey }}"
+        
       - name: Checkout repo
         uses: actions/checkout@v5
 
