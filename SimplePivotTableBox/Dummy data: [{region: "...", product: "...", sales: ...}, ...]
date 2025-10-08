@@ -1,0 +1,8 @@
+const rawData = [
+  { region: 'North', product: 'Apple', sales: 120 },
+  { region: 'North', product: 'Banana', sales: 90 },
+  { region: 'South', product: 'Apple', sales: 150 },
+  { region: 'South', product: 'Banana', sales: 80 },
+  { region: 'North', product: 'Orange', sales: 140 },
+  { region: 'South', product: 'Orange', sales: 110 },
+];

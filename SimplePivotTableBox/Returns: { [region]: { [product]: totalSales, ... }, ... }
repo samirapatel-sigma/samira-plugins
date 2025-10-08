@@ -1,0 +1,68 @@
+function getPivotData(data) {
+  const result = {};
+  data.forEach(({ region, product, sales }) => {
+    if (!result[region]) result[region] = {};
+    if (!result[region][product]) result[region][product] = 0;
+    result[region][product] += sales;
+  });
+  return result;
+}
+
+function PivotTable() {
+  const pivot = getPivotData(rawData);
+  const regions = Object.keys(pivot);
+  const products = Array.from(
+    new Set(rawData.map((row) => row.product))
+  );
+
+  // Compute column totals
+  const colTotals = products.map(product => (
+    rawData.filter(r => r.product === product).reduce((sum, r) => sum + r.sales, 0)
+  ));
+  // Compute row totals
+  const rowTotals = regions.map(region => (
+    Object.values(pivot[region]).reduce((sum, v) => sum + v, 0)
+  ));
+  // Grand total
+  const grandTotal = rawData.reduce((sum, r) => sum + r.sales, 0);
+
+  return (
+    <div className="pivot-table-container">
+      <table className="pivot-table">
+        <thead>
+          <tr>
+            <th>Region</th>
+            {products.map(product => (
+              <th key={product}>{product}</th>
+            ))}
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          {regions.map((region, i) => (
+            <tr key={region}>
+              <th className="pivot-row-header">{region}</th>
+              {products.map(product => (
+                <td key={product}>
+                  {pivot[region][product] ?? 0}
+                </td>
+              ))}
+              <td className="pivot-row-total">{rowTotals[i]}</td>
+            </tr>
+          ))}
+        </tbody>
+        <tfoot>
+          <tr>
+            <th className="pivot-col-total">Total</th>
+            {colTotals.map((total, i) => (
+              <td className="pivot-col-total" key={products[i]}>{total}</td>
+            ))}
+            <td className="pivot-grand-total">{grandTotal}</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  );
+}
+
+export default PivotTable;

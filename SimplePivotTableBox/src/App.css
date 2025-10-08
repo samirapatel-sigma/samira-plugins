@@ -1,0 +1,33 @@
+.center-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #fff0f6;
+}
+.hello-pinkbox {
+  background: #ffe0eb;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px #eab6c444;
+  padding: 40px 36px 24px 36px;
+  min-width: 400px;
+  max-width: 520px;
+  border: 2px solid #eab6c4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.hello-title {
+  color: #c33972;
+  font-family: 'Segoe UI', sans-serif;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+.pivot-loading,
+.pivot-error {
+  margin: 32px 0;
+  color: #a22d57;
+  font-weight: 500;
+  font-size: 1.2em;
+}

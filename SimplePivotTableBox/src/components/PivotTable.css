@@ -1,0 +1,40 @@
+/* Styles for the pivot table */
+.pivot-table-container {
+  overflow-x: auto;
+  margin-top: 12px;
+}
+.pivot-table {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 420px;
+  background: #fff;
+  font-size: 1rem;
+}
+.pivot-table th,
+.pivot-table td {
+  border: 1px solid #eab6c4;
+  padding: 8px 16px;
+  text-align: right;
+}
+.pivot-table th {
+  background: #ffe0eb;
+  color: #c33972;
+}
+.pivot-table .pivot-row-header {
+  font-weight: 500;
+  background: #ffe0eb;
+  color: #a22d57;
+  text-align: left;
+}
+.pivot-table .pivot-col-total {
+  background: #fbd6e2;
+  font-weight: 600;
+}
+.pivot-table .pivot-row-total {
+  background: #fbd6e2;
+  font-weight: 600;
+}
+.pivot-table .pivot-grand-total {
+  background: #eab6c4;
+  font-weight: bold;
+}
