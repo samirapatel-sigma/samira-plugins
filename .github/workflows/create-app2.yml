@@ -32,6 +32,7 @@ jobs:
 
       - name: Create folder and decode files
         run: |
+          git rm -rf "${{ github.event.inputs.folderName }}" || true
           mkdir -p "${{ github.event.inputs.folderName }}"
           echo "create directory ${{ github.event.inputs.folderName }}"
           echo "${{ github.event.inputs.files }}" > temp.json
@@ -71,14 +72,25 @@ jobs:
 
       - name: Deploy to new branch
         run: |
-          cd "${{ github.event.inputs.folderName }}/dist"
-          BRANCH="gh-pages-${{ github.event.inputs.folderName }}"
-          git init
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          DEPLOY_BRANCH="deploy-${{ github.event.inputs.folderName }}"
+          git fetch origin
+          if git show-ref --verify --quiet "refs/heads/$DEPLOY_BRANCH"; then
+            git checkout "$DEPLOY_BRANCH"
+          else
+            git checkout --orphan "$DEPLOY_BRANCH"
+          fi
+
+          # Remove all existing files from the branch
+          git rm -rf . || true
+
+          # Copy built dist/ files into root of deploy branch
+          cp -r "${{ github.event.inputs.folderName }}/dist/." .
+          touch .nojekyll  # disable Jekyll for GitHub Pages
+
+          # Commit the built files
           git add .
-          git commit -m "Add ${{ github.event.inputs.folderName }}" || echo "No changes to commit"
-          git push --force "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" master:$BRANCH
+          git commit -m "Deploy build for ${{ github.event.inputs.folderName }}"
+          git push origin HEAD --force
 
       # - name: Upload artifact for Pages
       #   uses: actions/upload-pages-artifact@v3
@@ -90,15 +102,21 @@ jobs:
       #   id: deployment
       #   uses: actions/deploy-pages@v4
 
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+        
       - name: Deploy to GitHub Pages
+        id: deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: gh-pages-${{ github.event.inputs.folderName }}
-          publish_dir: ${{ github.event.inputs.folderName }}/dist
+          branch: "deploy-${{ github.event.inputs.folderName }}"
+          folder: .
 
       - name: Save deploy URL to file
-        run: echo "${{ steps.deployment.outputs.page_url }}" > deployed_url.txt
+        run: |
+          echo "${{ steps.deploy.outputs.page_url }}" > deployed_url.txt
+        shell: bash
 
       - name: Upload deploy URL as artifact
         uses: actions/upload-artifact@v4
@@ -107,4 +125,4 @@ jobs:
           path: deployed_url.txt
 
       - name: output
-        run: echo "App deployed at ${{ steps.deployment.outputs.page_url }}"
+        run: echo "App deployed at ${{ steps.deploy.outputs.page_url }}"
