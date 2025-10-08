@@ -1,0 +1,14 @@
+.blueBox {
+  background-color: #1976d2;
+  color: #fff;
+  padding: 24px 48px;
+  border-radius: 12px;
+  font-size: 2rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px 0 rgba(25, 118, 210, 0.15);
+  margin: 24px auto;
+  max-width: 320px;
+}
