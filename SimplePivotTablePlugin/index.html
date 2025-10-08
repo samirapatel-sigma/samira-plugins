@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simple Pivot Table Plugin</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 2em;
+      background: #f7f9fa;
+    }
+    table.pivot-table {
+      border-collapse: collapse;
+      width: 100%;
+      background: #fff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+    }
+    .pivot-table th, .pivot-table td {
+      border: 1px solid #dee2e6;
+      padding: 8px 12px;
+      text-align: right;
+    }
+    .pivot-table th {
+      background: #f1f3f4;
+      text-align: center;
+      font-weight: 600;
+    }
+    .pivot-table td:first-child {
+      text-align: left;
+      font-weight: 500;
+      background: #fafbfc;
+    }
+  </style>
+</head>
+<body>
+  <h2>Pivot Table: Sales by Product and Region</h2>
+  <div id="pivot-root"></div>
+  <script>
+    // ----- DUMMY DATA -----
+    // Each entry: { product: string, region: string, sales: number }
+    const salesData = [
+      { product: 'Widget', region: 'North', sales: 120 },
+      { product: 'Widget', region: 'South', sales: 85 },
+      { product: 'Widget', region: 'East',  sales: 90 },
+      { product: 'Widget', region: 'West',  sales: 60 },
+      { product: 'Gadget', region: 'North', sales: 70 },
+      { product: 'Gadget', region: 'South', sales: 95 },
+      { product: 'Gadget', region: 'East',  sales: 50 },
+      { product: 'Gadget', region: 'West',  sales: 140 },
+      { product: 'Doohickey', region: 'North', sales: 34 },
+      { product: 'Doohickey', region: 'East', sales: 99 },
+      { product: 'Doohickey', region: 'South', sales: 40 },
+      { product: 'Doohickey', region: 'West', sales: 15 },
+    ];
+
+    // ----- PIVOT TABLE GENERATION LOGIC -----
+    // Aggregate sales totals by product/region
+    function pivotData(data) {
+      const products = Array.from(new Set(data.map(row => row.product)));
+      const regions = Array.from(new Set(data.map(row => row.region)));
+
+      // Build a lookup: { product: { region: sales, ... }, ... }
+      const byProduct = {};
+      products.forEach(product => {
+        byProduct[product] = {};
+        regions.forEach(region => {
+          byProduct[product][region] = 0; // default if missing
+        });
+      });
+      data.forEach(({product, region, sales}) => {
+        byProduct[product][region] += sales;
+      });
+      return { products, regions, byProduct };
+    }
+
+    // Render an HTML table with the pivoted data
+    function renderPivotTable({products, regions, byProduct}) {
+      const thead = `
+        <tr>
+          <th>Product</th>
+          ${regions.map(r => `<th>${r}</th>`).join('')}
+          <th>Total</th>
+        </tr>
+      `;
+      const tbody = products.map(product => {
+        const salesByRegion = regions.map(region => byProduct[product][region]);
+        const rowTotal = salesByRegion.reduce((a,b) => a+b, 0);
+        return `
+          <tr>
+            <td>${product}</td>
+            ${salesByRegion.map(s => `<td>${s}</td>`).join('')}
+            <td><b>${rowTotal}</b></td>
+          </tr> 
+        `;
+      }).join('');
+      // Grand totals by region
+      const regionTotals = regions.map(region => {
+        return products.reduce((sum, product) => sum + byProduct[product][region], 0);
+      });
+      const grandTotal = regionTotals.reduce((a, b) => a + b, 0);
+      const tfoot = `
+        <tr>
+          <th>Total</th>
+          ${regionTotals.map(t => `<th>${t}</th>`).join('')}
+          <th>${grandTotal}</th>
+        </tr>
+      `;
+      return `
+        <table class="pivot-table">
+          <thead>${thead}</thead>
+          <tbody>${tbody}</tbody>
+          <tfoot>${tfoot}</tfoot>
+        </table>
+      `;
+    }
+
+    // ----- MAIN ENTRYPOINT -----
+    function main() {
+      try {
+        const pivot = pivotData(salesData);
+        document.getElementById('pivot-root').innerHTML = renderPivotTable(pivot);
+      } catch (err) {
+        document.getElementById('pivot-root').innerHTML = '<div style="color:red;">Error rendering pivot table.</div>';
+        // Optionally log error for further debugging
+        // console.error(err);
+      }
+    }
+    main();
+  </script>
+</body>
+</html>
