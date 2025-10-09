@@ -1,0 +1,14 @@
+.centered-container {
+  width: 100vw;
+  height: 100vh;
+  background-color: yellow;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.centered-container h1 {
+  margin: 0;
+  font-size: 2rem;
+  color: #222;
+}
