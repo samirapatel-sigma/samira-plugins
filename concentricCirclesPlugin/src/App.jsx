@@ -1,2 +1,8 @@
 import React from 'react';
-import ConcentricCircles from './components/ConcentricCircles.jsx';
+import LayoutBodyKkOQSqVjFr from './layouts/LayoutBodyKkOQSqVjFr';
+
+export default function App() {
+  return (
+    <LayoutBodyKkOQSqVjFr />
+  );
+}

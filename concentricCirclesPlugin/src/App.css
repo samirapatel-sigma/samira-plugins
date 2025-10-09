@@ -1,0 +1,26 @@
+.layout-body-concentric {
+  min-height: 100vh;
+  min-width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #fafafa;
+}
+
+.plugin-title {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  color: #212121;
+  margin-bottom: 32px;
+  font-weight: 600;
+}
+
+.concentric-circles-wrapper {
+  box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+  margin-bottom: 16px;
+}
+
+.concentric-circles-error {
+  color: #c62828;
+  font-size: 1rem;
+}
