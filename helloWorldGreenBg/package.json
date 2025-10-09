@@ -1,7 +1,7 @@
 {
   "name": "hello-world-green-bg",
   "version": "1.0.0",
-  "private": true,
+  "description": "A simple React/Vite app displaying 'Hello World' with green background.",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -12,7 +12,7 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@vitejs/plugin-react": "^4.0.4",
-    "vite": "^5.2.0"
+    "vite": "^4.5.0",
+    "@vitejs/plugin-react": "^4.0.0"
   }
 }
