@@ -1,0 +1,9 @@
+const App = () => {
+  return (
+    <div className="layout-body-KkOQSqVjFr">
+      <ConcentricCircles />
+    </div>
+  );
+};
+
+export default App;
