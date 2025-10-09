@@ -1,0 +1,14 @@
+.main-background {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #38b000; /* Green background */
+}
+
+.main-background h1 {
+  color: #fff;
+  font-size: 3rem;
+  margin: 0;
+  font-family: sans-serif;
+}
