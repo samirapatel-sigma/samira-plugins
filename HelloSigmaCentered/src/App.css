@@ -1,0 +1,10 @@
+.hello-sigma-container {
+  min-height: 100vh;
+  min-width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #FFEB3B; /* Material yellow */
+  font-size: 2rem;
+  font-family: sans-serif;
+}
