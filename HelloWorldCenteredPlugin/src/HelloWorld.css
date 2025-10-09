@@ -1,0 +1,16 @@
+.hello-world-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: yellow;
+  width: 100vw;
+  box-sizing: border-box;
+}
+
+.hello-world-text {
+  margin: 0;
+  font-size: 2rem;
+  color: #222;
+  font-family: sans-serif;
+}

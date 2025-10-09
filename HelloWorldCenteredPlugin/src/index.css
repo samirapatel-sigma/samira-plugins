@@ -1,0 +1,12 @@
+/* Reset styles and set body & root to fill area */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
