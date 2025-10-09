@@ -1,0 +1,11 @@
+.yellowBox {
+  background-color: #fff566;
+  border: 1px solid #ffec3d;
+  padding: 32px 48px;
+  border-radius: 12px;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #333;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  text-align: center;
+}

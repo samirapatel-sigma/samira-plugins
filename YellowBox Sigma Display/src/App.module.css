@@ -1,0 +1,8 @@
+.layoutBody {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #fafaff;
+  /* Simulates the 'layout-body-psRq7xniLz' area */
+}
