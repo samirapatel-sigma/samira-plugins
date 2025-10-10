@@ -14,9 +14,10 @@
     "react-pivottable": "^0.10.0"
   },
   "devDependencies": {
+    "@vitejs/plugin-react": "^4.0.0",
     "autoprefixer": "^10.4.2",
-    "postcss": "^8.4.6",
-    "tailwindcss": "^3.0.23",
-    "vite": "^4.4.9"
+    "postcss": "^8.4.21",
+    "tailwindcss": "^3.3.2",
+    "vite": "^4.0.0"
   }
 }
