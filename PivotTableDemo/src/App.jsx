@@ -1,17 +1,13 @@
 import React from 'react';
-import PivotTable from './components/PivotTable.jsx';
-import data from './data/dummydata.json';
+import PivotTableDemo from './components/PivotTableDemo.jsx';
+import dummyData from './data/dummyData.js';
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center p-8">
-      <h1 className="text-3xl font-bold text-center mt-6">Store Sales Pivot Table Demo</h1>
-      <p className="text-gray-600 mb-4 text-center max-w-2xl">
-        Pivot table summarizes store sales data by Region/State and Product Type/Family,<br />
-        showing both the <b>Sum of Price</b> and <b>Sum of Cost</b> for each combination.
-      </p>
-      <PivotTable data={data} />
-      <div className="mt-8 text-xs text-center text-gray-400">Powered by react-pivottable</div>
-    </div>
+    <main className="min-h-screen bg-gray-50 flex flex-col items-center justify-start py-8">
+      <h1 className="text-3xl font-bold mb-4 text-gray-800">Pivot Table Demo</h1>
+      <p className="mb-4 text-gray-600">Rows: Store region, Store state; Columns: Product type, Product family; Values: Sum of price, Sum of cost.</p>
+      <PivotTableDemo data={dummyData} />
+    </main>
   );
 }

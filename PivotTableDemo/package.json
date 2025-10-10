@@ -1,24 +1,23 @@
 {
-  "name": "pivottable-demo",
-  "version": "0.0.1",
+  "name": "pivot-table-demo",
+  "version": "1.0.0",
   "private": true,
-  "description": "A Vite + React + Tailwind project displaying a pivot table with dummy data.",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
+    "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-pivottable": "^0.10.0",
-    "prop-types": "^15.8.1"
+    "react-pivottable": "^0.10.0"
   },
   "devDependencies": {
-    "vite": "^4.4.0",
-    "@vitejs/plugin-react": "^4.1.0",
-    "autoprefixer": "^10.4.17",
-    "postcss": "^8.4.27",
-    "tailwindcss": "^3.3.3"
+    "@vitejs/plugin-react": "^4.2.1",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.34",
+    "tailwindcss": "^3.4.3",
+    "vite": "^4.4.9"
   }
 }
