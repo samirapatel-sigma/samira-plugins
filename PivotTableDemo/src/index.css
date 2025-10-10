@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom tweaks for pivottable layout */
+.pivot-table-wrap {
+  @apply p-6 bg-white shadow rounded mt-8;
+}

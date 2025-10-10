@@ -1,0 +1,74 @@
+[
+  {
+    "Store region": "West",
+    "Store state": "California",
+    "Product type": "Beverage",
+    "Product family": "Coffee",
+    "price": 100,
+    "cost": 60
+  },
+  {
+    "Store region": "West",
+    "Store state": "California",
+    "Product type": "Beverage",
+    "Product family": "Tea",
+    "price": 80,
+    "cost": 48
+  },
+  {
+    "Store region": "West",
+    "Store state": "Oregon",
+    "Product type": "Snack",
+    "Product family": "Chips",
+    "price": 50,
+    "cost": 25
+  },
+  {
+    "Store region": "East",
+    "Store state": "New York",
+    "Product type": "Beverage",
+    "Product family": "Coffee",
+    "price": 150,
+    "cost": 90
+  },
+  {
+    "Store region": "East",
+    "Store state": "Massachusetts",
+    "Product type": "Snack",
+    "Product family": "Cookies",
+    "price": 60,
+    "cost": 32
+  },
+  {
+    "Store region": "South",
+    "Store state": "Texas",
+    "Product type": "Beverage",
+    "Product family": "Tea",
+    "price": 110,
+    "cost": 60
+  },
+  {
+    "Store region": "South",
+    "Store state": "Texas",
+    "Product type": "Snack",
+    "Product family": "Chips",
+    "price": 70,
+    "cost": 38
+  },
+  {
+    "Store region": "Midwest",
+    "Store state": "Illinois",
+    "Product type": "Beverage",
+    "Product family": "Coffee",
+    "price": 120,
+    "cost": 67
+  },
+  {
+    "Store region": "Midwest",
+    "Store state": "Ohio",
+    "Product type": "Snack",
+    "Product family": "Cookies",
+    "price": 45,
+    "cost": 19
+  }
+]
