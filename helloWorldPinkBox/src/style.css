@@ -1,0 +1,19 @@
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fafafd;
+}
+
+.pink-box {
+  padding: 2rem 3rem;
+  border-radius: 1rem;
+  background-color: #ffb6c1;
+  color: #2d0018;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  font-size: 2rem;
+  box-shadow: 0 4px 24px 0 #f7b1cc33;
+  border: 1px solid #ff69b4;
+  text-align: center;
+}
