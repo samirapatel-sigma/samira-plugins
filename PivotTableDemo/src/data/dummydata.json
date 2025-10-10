@@ -1,0 +1,82 @@
+[
+  {
+    "Store Region": "West",
+    "Store State": "CA",
+    "Product Type": "Electronics",
+    "Product Family": "Mobile",
+    "Price": 999,
+    "Cost": 700
+  },
+  {
+    "Store Region": "West",
+    "Store State": "CA",
+    "Product Type": "Electronics",
+    "Product Family": "Laptop",
+    "Price": 1300,
+    "Cost": 900
+  },
+  {
+    "Store Region": "West",
+    "Store State": "OR",
+    "Product Type": "Electronics",
+    "Product Family": "Laptop",
+    "Price": 1200,
+    "Cost": 820
+  },
+  {
+    "Store Region": "South",
+    "Store State": "TX",
+    "Product Type": "Home Appliance",
+    "Product Family": "Refrigerator",
+    "Price": 800,
+    "Cost": 560
+  },
+  {
+    "Store Region": "South",
+    "Store State": "TX",
+    "Product Type": "Home Appliance",
+    "Product Family": "Washer",
+    "Price": 600,
+    "Cost": 390
+  },
+  {
+    "Store Region": "East",
+    "Store State": "NY",
+    "Product Type": "Electronics",
+    "Product Family": "Mobile",
+    "Price": 1100,
+    "Cost": 750
+  },
+  {
+    "Store Region": "East",
+    "Store State": "PA",
+    "Product Type": "Home Appliance",
+    "Product Family": "Refrigerator",
+    "Price": 950,
+    "Cost": 630
+  },
+  {
+    "Store Region": "East",
+    "Store State": "PA",
+    "Product Type": "Electronics",
+    "Product Family": "Laptop",
+    "Price": 1350,
+    "Cost": 950
+  },
+  {
+    "Store Region": "West",
+    "Store State": "CA",
+    "Product Type": "Home Appliance",
+    "Product Family": "Refrigerator",
+    "Price": 900,
+    "Cost": 650
+  },
+  {
+    "Store Region": "South",
+    "Store State": "FL",
+    "Product Type": "Electronics",
+    "Product Family": "Mobile",
+    "Price": 950,
+    "Cost": 670
+  }
+]

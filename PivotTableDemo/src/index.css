@@ -2,10 +2,5 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Style react-pivottable tables for better visuals */
-.pvtTable th, .pvtTable td {
-  @apply border border-gray-300 px-2 py-1;
-}
-.pvtTable {
-  @apply bg-white shadow-md text-sm;
-}
+/* react-pivottable styles */
+@import 'react-pivottable/pivottable.css';

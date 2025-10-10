@@ -1,13 +1,13 @@
 import React from 'react';
+import data from './data/dummydata.json';
 import PivotTableDemo from './components/PivotTableDemo.jsx';
 
-export default function App() {
+const App = () => {
   return (
-    <div className="min-h-screen flex flex-col items-center py-8 bg-gray-50">
-      <h1 className="text-3xl font-bold mb-6 text-gray-700">Pivot Table Demo</h1>
-      <div className="w-full max-w-6xl">
-        <PivotTableDemo />
-      </div>
+    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <PivotTableDemo data={data} />
     </div>
   );
-}
+};
+
+export default App;
