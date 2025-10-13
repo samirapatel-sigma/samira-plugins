@@ -1,0 +1,28 @@
+{
+  "name": "calendar-heatmap-demo",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.11.0",
+    "@emotion/styled": "^11.11.0",
+    "react": "^18.2.0",
+    "react-calendar-heatmap": "^1.8.0",
+    "react-dom": "^18.2.0",
+    "@sigmacomputing/plugin": "latest",
+    "autoprefixer": "^10.4.19"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.30",
+    "@types/react-dom": "^18.2.11",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.7",
+    "@vitejs/plugin-react": "^4.1.0",
+    "@emotion/babel-plugin": "^11.11.0",
+    "postcss": "^8.4.31"
+  },
+  "main": "/src/main.tsx"
+}
