@@ -111,4 +111,4 @@ jobs:
           path: deployed_url.txt
 
       - name: output
-        run: echo "App deployed at ${{ steps.deploy.outputs.page_url }}"
+        run: echo "App deployed at ${{ steps.deploy.outputs.page_url }}${{ github.event.inputs.folderName }}"
