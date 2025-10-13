@@ -1,0 +1,75 @@
+name: save plugin code
+description: save plugin code in repo
+run-name: Save Code - ID - ${{ github.event.inputs.runKey }}
+on:
+  workflow_dispatch:
+    inputs:
+      folderName:
+        description: "Folder name to create"
+        required: true
+      files:
+        description: "Base64 or JSON encoded files object"
+        required: true
+      runKey:
+        required: true
+
+jobs:
+  save-plugin:
+    name: Save code to ${{ inputs.folderName }} (${{ inputs.runKey }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Log run key
+        run: echo "Run key - ${{ inputs.runKey }}"
+        
+      - name: Checkout repo
+        uses: actions/checkout@v5
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Save plugin files
+        run: |
+          git rm -rf "${{ github.event.inputs.folderName }}" || true
+          mkdir -p "${{ github.event.inputs.folderName }}"
+          echo "create directory ${{ github.event.inputs.folderName }}"
+          echo "${{ github.event.inputs.files }}" > temp.json
+          node -e '
+          const fs = require("fs");
+          const folder = process.env.FOLDER;
+          const fileContents = fs.readFileSync("temp.json", "utf8");
+          const decoded = Buffer.from(fileContents, "base64").toString("utf8");
+          const files = JSON.parse(decoded);
+          console.log(files);
+          for (const [filePath, contentBase64] of Object.entries(files)) {
+            const fullPath = path.join(folder, filePath);
+            console.log(fullPath);
+            fs.mkdirSync(path.dirname(fullPath), { recursive: true });
+            const content = Buffer.from(contentBase64, "base64").toString("utf8");
+            console.log("content:",content);
+            fs.writeFileSync(fullPath, content, "utf8");
+            console.log("✅ Created:", fullPath);
+          }
+          '
+        env:
+          FOLDER: ${{ github.event.inputs.folderName }}
+
+      - name: Commit and push the code
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "Add ${{ github.event.inputs.folderName }}"
+          git push
+
+      - name: output
+        run: echo "Plugin code files saved to ${{ github.event.inputs.folderName }}"
