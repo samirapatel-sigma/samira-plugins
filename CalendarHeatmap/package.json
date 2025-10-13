@@ -12,7 +12,8 @@
     "react": "^18.2.0",
     "react-calendar-heatmap": "^1.8.0",
     "react-dom": "^18.2.0",
-    "@sigmacomputing/plugin": "latest"
+    "@sigmacomputing/plugin": "latest",
+    "autoprefixer": "^10.4.19"
   },
   "devDependencies": {
     "@types/react": "^18.2.30",
