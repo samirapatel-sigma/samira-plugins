@@ -1,0 +1,417 @@
+{
+  "model": {
+    "nodes": {
+      "inode-5AiZvIHBiUq5V6PIYUgSn": {
+        "id": "inode-5AiZvIHBiUq5V6PIYUgSn",
+        "type": "dataSource",
+        "inodeId": "02f5c79f-42af-4fba-a67c-37bb91ffa2ab",
+        "version": 3
+      },
+      "tShGRpAOg-": {
+        "type": "sheet",
+        "id": "tShGRpAOg-",
+        "sheetId": "tShGRpAOg-",
+        "source": "inode-5AiZvIHBiUq5V6PIYUgSn"
+      }
+    },
+    "invocableNodes": {}
+  },
+  "pages": {
+    "gIthz_BMet": {
+      "id": "gIthz_BMet",
+      "type": "default",
+      "title": "Page 1",
+      "body": {
+        "id": "deprecated-dash",
+        "type": "body",
+        "sections": []
+      },
+      "sortIndex": 0,
+      "layout": {
+        "sections": [
+          {
+            "id": "section-gIthz_BMet",
+            "displayName": "Section",
+            "desktop": {
+              "gridSizeY": 40
+            },
+            "mobile": {
+              "gridSizeY": 40
+            }
+          }
+        ],
+        "elements": [
+          {
+            "id": "cKsTxIW_MT",
+            "type": "grid",
+            "desktop": {
+              "rowStart": 1,
+              "rowEnd": 21,
+              "colStart": 1,
+              "colEnd": 25
+            },
+            "mobile": {
+              "rowStart": 1,
+              "rowEnd": 21,
+              "colStart": 1,
+              "colEnd": 9
+            }
+          }
+        ],
+        "groups": []
+      },
+      "layouts": {
+        "bodyLayoutId": "layout-body-gIthz_BMet"
+      }
+    }
+  },
+  "sheets": {
+    "tShGRpAOg-": {
+      "id": "tShGRpAOg-",
+      "columns": {
+        "inode-5AiZvIHBiUq5V6PIYUgSn/ORDER_NUMBER": {
+          "id": "inode-5AiZvIHBiUq5V6PIYUgSn/ORDER_NUMBER",
+          "type": "formula",
+          "formula": {
+            "type": "nameRef",
+            "path": [
+              "inode-5AiZvIHBiUq5V6PIYUgSn",
+              "ORDER_NUMBER"
+            ]
+          }
+        },
+        "inode-5AiZvIHBiUq5V6PIYUgSn/DATE": {
+          "id": "inode-5AiZvIHBiUq5V6PIYUgSn/DATE",
+          "type": "formula",
+          "formula": {
+            "type": "nameRef",
+            "path": [
+              "inode-5AiZvIHBiUq5V6PIYUgSn",
+              "DATE"
+            ]
+          }
+        },
+        "inode-5AiZvIHBiUq5V6PIYUgSn/SKU_NUMBER": {
+          "id": "inode-5AiZvIHBiUq5V6PIYUgSn/SKU_NUMBER",
+          "type": "formula",
+          "formula": {
+            "type": "nameRef",
+            "path": [
+              "inode-5AiZvIHBiUq5V6PIYUgSn",
+              "SKU_NUMBER"
+            ]
+          }
+        },
+        "inode-5AiZvIHBiUq5V6PIYUgSn/QUANTITY": {
+          "id": "inode-5AiZvIHBiUq5V6PIYUgSn/QUANTITY",
+          "type": "formula",
+          "formula": {
+            "type": "nameRef",
+            "path": [
+              "inode-5AiZvIHBiUq5V6PIYUgSn",
+              "QUANTITY"
+            ]
+          }
+        },
+        "inode-5AiZvIHBiUq5V6PIYUgSn/COST": {
+          "id": "inode-5AiZvIHBiUq5V6PIYUgSn/COST",
+          "type": "formula",
+          "formula": {
+            "type": "nameRef",
+            "path": [
+              "inode-5AiZvIHBiUq5V6PIYUgSn",
+              "COST"
+            ]
+          }
+        },
+        "inode-5AiZvIHBiUq5V6PIYUgSn/PRICE": {
+          "id": "inode-5AiZvIHBiUq5V6PIYUgSn/PRICE",
+          "type": "formula",
+          "formula": {
+            "type": "nameRef",
+            "path": [
+              "inode-5AiZvIHBiUq5V6PIYUgSn",
+              "PRICE"
+            ]
+          }
+        },
+        "inode-5AiZvIHBiUq5V6PIYUgSn/PRODUCT_TYPE": {
+          "id": "inode-5AiZvIHBiUq5V6PIYUgSn/PRODUCT_TYPE",
+          "type": "formula",
+          "formula": {
+            "type": "nameRef",
+            "path": [
+              "inode-5AiZvIHBiUq5V6PIYUgSn",
+              "PRODUCT_TYPE"
+            ]
+          }
+        },
+        "inode-5AiZvIHBiUq5V6PIYUgSn/PRODUCT_FAMILY": {
+          "id": "inode-5AiZvIHBiUq5V6PIYUgSn/PRODUCT_FAMILY",
+          "type": "formula",
+          "formula": {
+            "type": "nameRef",
+            "path": [
+              "inode-5AiZvIHBiUq5V6PIYUgSn",
+              "PRODUCT_FAMILY"
+            ]
+          }
+        },
+        "inode-5AiZvIHBiUq5V6PIYUgSn/PRODUCT_LINE": {
+          "id": "inode-5AiZvIHBiUq5V6PIYUgSn/PRODUCT_LINE",
+          "type": "formula",
+          "formula": {
+            "type": "nameRef",
+            "path": [
+              "inode-5AiZvIHBiUq5V6PIYUgSn",
+              "PRODUCT_LINE"
+            ]
+          }
+        },
+        "inode-5AiZvIHBiUq5V6PIYUgSn/BRAND": {
+          "id": "inode-5AiZvIHBiUq5V6PIYUgSn/BRAND",
+          "type": "formula",
+          "formula": {
+            "type": "nameRef",
+            "path": [
+              "inode-5AiZvIHBiUq5V6PIYUgSn",
+              "BRAND"
+            ]
+          }
+        },
+        "inode-5AiZvIHBiUq5V6PIYUgSn/PRODUCT_NAME": {
+          "id": "inode-5AiZvIHBiUq5V6PIYUgSn/PRODUCT_NAME",
+          "type": "formula",
+          "formula": {
+            "type": "nameRef",
+            "path": [
+              "inode-5AiZvIHBiUq5V6PIYUgSn",
+              "PRODUCT_NAME"
+            ]
+          }
+        },
+        "inode-5AiZvIHBiUq5V6PIYUgSn/STORE_NAME": {
+          "id": "inode-5AiZvIHBiUq5V6PIYUgSn/STORE_NAME",
+          "type": "formula",
+          "formula": {
+            "type": "nameRef",
+            "path": [
+              "inode-5AiZvIHBiUq5V6PIYUgSn",
+              "STORE_NAME"
+            ]
+          }
+        },
+        "inode-5AiZvIHBiUq5V6PIYUgSn/STORE_KEY": {
+          "id": "inode-5AiZvIHBiUq5V6PIYUgSn/STORE_KEY",
+          "type": "formula",
+          "formula": {
+            "type": "nameRef",
+            "path": [
+              "inode-5AiZvIHBiUq5V6PIYUgSn",
+              "STORE_KEY"
+            ]
+          }
+        },
+        "inode-5AiZvIHBiUq5V6PIYUgSn/STORE_REGION": {
+          "id": "inode-5AiZvIHBiUq5V6PIYUgSn/STORE_REGION",
+          "type": "formula",
+          "formula": {
+            "type": "nameRef",
+            "path": [
+              "inode-5AiZvIHBiUq5V6PIYUgSn",
+              "STORE_REGION"
+            ]
+          }
+        },
+        "inode-5AiZvIHBiUq5V6PIYUgSn/STORE_STATE": {
+          "id": "inode-5AiZvIHBiUq5V6PIYUgSn/STORE_STATE",
+          "type": "formula",
+          "formula": {
+            "type": "nameRef",
+            "path": [
+              "inode-5AiZvIHBiUq5V6PIYUgSn",
+              "STORE_STATE"
+            ]
+          }
+        },
+        "inode-5AiZvIHBiUq5V6PIYUgSn/STORE_CITY": {
+          "id": "inode-5AiZvIHBiUq5V6PIYUgSn/STORE_CITY",
+          "type": "formula",
+          "formula": {
+            "type": "nameRef",
+            "path": [
+              "inode-5AiZvIHBiUq5V6PIYUgSn",
+              "STORE_CITY"
+            ]
+          }
+        },
+        "inode-5AiZvIHBiUq5V6PIYUgSn/STORE_ZIP_CODE": {
+          "id": "inode-5AiZvIHBiUq5V6PIYUgSn/STORE_ZIP_CODE",
+          "type": "formula",
+          "formula": {
+            "type": "nameRef",
+            "path": [
+              "inode-5AiZvIHBiUq5V6PIYUgSn",
+              "STORE_ZIP_CODE"
+            ]
+          }
+        },
+        "inode-5AiZvIHBiUq5V6PIYUgSn/STORE_LATITUDE": {
+          "id": "inode-5AiZvIHBiUq5V6PIYUgSn/STORE_LATITUDE",
+          "type": "formula",
+          "formula": {
+            "type": "nameRef",
+            "path": [
+              "inode-5AiZvIHBiUq5V6PIYUgSn",
+              "STORE_LATITUDE"
+            ]
+          }
+        },
+        "inode-5AiZvIHBiUq5V6PIYUgSn/STORE_LONGITUDE": {
+          "id": "inode-5AiZvIHBiUq5V6PIYUgSn/STORE_LONGITUDE",
+          "type": "formula",
+          "formula": {
+            "type": "nameRef",
+            "path": [
+              "inode-5AiZvIHBiUq5V6PIYUgSn",
+              "STORE_LONGITUDE"
+            ]
+          }
+        },
+        "inode-5AiZvIHBiUq5V6PIYUgSn/CUST_KEY": {
+          "id": "inode-5AiZvIHBiUq5V6PIYUgSn/CUST_KEY",
+          "type": "formula",
+          "formula": {
+            "type": "nameRef",
+            "path": [
+              "inode-5AiZvIHBiUq5V6PIYUgSn",
+              "CUST_KEY"
+            ]
+          }
+        },
+        "inode-5AiZvIHBiUq5V6PIYUgSn/CUSTOMER_NAME": {
+          "id": "inode-5AiZvIHBiUq5V6PIYUgSn/CUSTOMER_NAME",
+          "type": "formula",
+          "formula": {
+            "type": "nameRef",
+            "path": [
+              "inode-5AiZvIHBiUq5V6PIYUgSn",
+              "CUSTOMER_NAME"
+            ]
+          }
+        },
+        "inode-5AiZvIHBiUq5V6PIYUgSn/CUST_JSON": {
+          "id": "inode-5AiZvIHBiUq5V6PIYUgSn/CUST_JSON",
+          "type": "formula",
+          "formula": {
+            "type": "nameRef",
+            "path": [
+              "inode-5AiZvIHBiUq5V6PIYUgSn",
+              "CUST_JSON"
+            ]
+          }
+        }
+      },
+      "base": {
+        "columns": [
+          "inode-5AiZvIHBiUq5V6PIYUgSn/ORDER_NUMBER",
+          "inode-5AiZvIHBiUq5V6PIYUgSn/DATE",
+          "inode-5AiZvIHBiUq5V6PIYUgSn/SKU_NUMBER",
+          "inode-5AiZvIHBiUq5V6PIYUgSn/QUANTITY",
+          "inode-5AiZvIHBiUq5V6PIYUgSn/COST",
+          "inode-5AiZvIHBiUq5V6PIYUgSn/PRICE",
+          "inode-5AiZvIHBiUq5V6PIYUgSn/PRODUCT_TYPE",
+          "inode-5AiZvIHBiUq5V6PIYUgSn/PRODUCT_FAMILY",
+          "inode-5AiZvIHBiUq5V6PIYUgSn/PRODUCT_LINE",
+          "inode-5AiZvIHBiUq5V6PIYUgSn/BRAND",
+          "inode-5AiZvIHBiUq5V6PIYUgSn/PRODUCT_NAME",
+          "inode-5AiZvIHBiUq5V6PIYUgSn/STORE_NAME",
+          "inode-5AiZvIHBiUq5V6PIYUgSn/STORE_KEY",
+          "inode-5AiZvIHBiUq5V6PIYUgSn/STORE_REGION",
+          "inode-5AiZvIHBiUq5V6PIYUgSn/STORE_STATE",
+          "inode-5AiZvIHBiUq5V6PIYUgSn/STORE_CITY",
+          "inode-5AiZvIHBiUq5V6PIYUgSn/STORE_ZIP_CODE",
+          "inode-5AiZvIHBiUq5V6PIYUgSn/STORE_LATITUDE",
+          "inode-5AiZvIHBiUq5V6PIYUgSn/STORE_LONGITUDE",
+          "inode-5AiZvIHBiUq5V6PIYUgSn/CUST_KEY",
+          "inode-5AiZvIHBiUq5V6PIYUgSn/CUSTOMER_NAME",
+          "inode-5AiZvIHBiUq5V6PIYUgSn/CUST_JSON"
+        ]
+      },
+      "config": {
+        "title": {
+          "show": true,
+          "dynamicTitleId": {
+            "id": "DVex35398b",
+            "type": "dynamic-title"
+          }
+        }
+      },
+      "type": "levelTable",
+      "levels": []
+    }
+  },
+  "variables": {},
+  "elements": {
+    "cKsTxIW_MT": {
+      "id": "cKsTxIW_MT",
+      "type": "viz",
+      "height": {
+        "type": "ratio",
+        "value": "auto"
+      },
+      "viz": {
+        "workbookId": "workbook",
+        "sheetId": "tShGRpAOg-"
+      }
+    }
+  },
+  "layoutElements": {},
+  "layouts": {
+    "layout-body-gIthz_BMet": {
+      "type": "grid",
+      "layoutId": "layout-body-gIthz_BMet",
+      "size": {
+        "desktop": {
+          "widthCells": 24,
+          "heightCells": 40
+        },
+        "mobile": {
+          "widthCells": 8,
+          "heightCells": 20
+        }
+      },
+      "elementIds": [
+        "cKsTxIW_MT"
+      ]
+    }
+  },
+  "formatVersion": 128,
+  "settings": {
+    "isGridLayoutMode": true
+  },
+  "pendingCodeDefinitions": {},
+  "dynamicTitles": {
+    "DVex35398b": {
+      "id": "DVex35398b",
+      "contents": {
+        "version": 1,
+        "doc": [
+          {
+            "type": "paragraph",
+            "attrs": {
+              "align": "left",
+              "blockStyle": "p-med"
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "test table 1"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}
