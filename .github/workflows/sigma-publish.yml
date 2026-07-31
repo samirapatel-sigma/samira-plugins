@@ -14,15 +14,17 @@ jobs:
         with:
           fetch-depth: 2
 
-      - name: Install Sigma CLI
-        run: npm install -g sigma-computing-cli
+      - name: Get Sigma access token
+        id: auth
+        run: |
+          TOKEN=$(curl -s -X POST "https://api.sigmacomputing.com/v2/auth/token" \
+            -H "Content-Type: application/x-www-form-urlencoded" \
+            -d "grant_type=client_credentials&client_id=${{ secrets.SIGMA_CLIENT_ID }}&client_secret=${{ secrets.SIGMA_CLIENT_SECRET }}" \
+            | jq -r '.access_token')
+          echo "token=$TOKEN" >> $GITHUB_OUTPUT
 
       - name: Update changed workbooks in Sigma
-        env:
-          SIGMA_CLIENT_ID: ${{ secrets.SIGMA_CLIENT_ID }}
-          SIGMA_CLIENT_SECRET: ${{ secrets.SIGMA_CLIENT_SECRET }}
         run: |
-          # Find workbook JSON files changed in this PR
           CHANGED=$(git diff --name-only HEAD~1 HEAD | grep '\.json$' || true)
 
           if [ -z "$CHANGED" ]; then
@@ -30,19 +32,22 @@ jobs:
             exit 0
           fi
 
-          # Load the file → workbook ID mapping
           MAPPING=$(cat .sigma/workbooks.json)
 
           for FILE in $CHANGED; do
             WORKBOOK_ID=$(echo "$MAPPING" | jq -r --arg f "$FILE" '.[$f] // empty')
 
             if [ -z "$WORKBOOK_ID" ]; then
-              echo "No workbook ID mapped for $FILE, skipping."
+              echo "No workbook mapped for $FILE, skipping."
               continue
             fi
 
             echo "Updating workbook $WORKBOOK_ID from $FILE..."
-            sigma api workbooks spec update \
-              --params "{\"workbookId\":\"$WORKBOOK_ID\"}" \
-              --json @"$FILE"
+            curl -sf -X PUT \
+              "https://api.sigmacomputing.com/v2/workbooks/$WORKBOOK_ID/spec" \
+              -H "Authorization: Bearer ${{ steps.auth.outputs.token }}" \
+              -H "Content-Type: application/json" \
+              --data-binary @"$FILE"
+
+            echo "Done: $FILE → $WORKBOOK_ID"
           done
