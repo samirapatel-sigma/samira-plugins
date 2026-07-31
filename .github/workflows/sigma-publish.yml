@@ -17,10 +17,14 @@ jobs:
       - name: Get Sigma access token
         id: auth
         run: |
-          TOKEN=$(curl -s -X POST "https://api.sigmacomputing.com/v2/auth/token" \
+          RESPONSE=$(curl -s -X POST "https://api.sigmacomputing.com/v2/auth/token" \
             -H "Content-Type: application/x-www-form-urlencoded" \
-            -d "grant_type=client_credentials&client_id=${{ secrets.SIGMA_CLIENT_ID }}&client_secret=${{ secrets.SIGMA_CLIENT_SECRET }}" \
-            | jq -r '.access_token')
+            -d "grant_type=client_credentials&client_id=${{ secrets.SIGMA_CLIENT_ID }}&client_secret=${{ secrets.SIGMA_CLIENT_SECRET }}")
+          TOKEN=$(echo "$RESPONSE" | jq -r '.access_token // empty')
+          if [ -z "$TOKEN" ]; then
+            echo "Auth failed. Response: $RESPONSE"
+            exit 1
+          fi
           echo "token=$TOKEN" >> $GITHUB_OUTPUT
 
       - name: Update changed workbooks in Sigma
@@ -43,7 +47,7 @@ jobs:
             fi
 
             echo "Updating workbook $WORKBOOK_ID from $FILE..."
-            curl -sf -X PUT \
+            curl --fail-with-body -X PUT \
               "https://api.sigmacomputing.com/v2/workbooks/$WORKBOOK_ID/spec" \
               -H "Authorization: Bearer ${{ steps.auth.outputs.token }}" \
               -H "Content-Type: application/json" \
