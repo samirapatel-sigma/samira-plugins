@@ -1,0 +1,48 @@
+name: Update Sigma workbooks on PR merge
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [main]
+
+jobs:
+  update-workbooks:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Install Sigma CLI
+        run: npm install -g sigma-computing-cli
+
+      - name: Update changed workbooks in Sigma
+        env:
+          SIGMA_CLIENT_ID: ${{ secrets.SIGMA_CLIENT_ID }}
+          SIGMA_CLIENT_SECRET: ${{ secrets.SIGMA_CLIENT_SECRET }}
+        run: |
+          # Find workbook JSON files changed in this PR
+          CHANGED=$(git diff --name-only HEAD~1 HEAD | grep '\.json$' || true)
+
+          if [ -z "$CHANGED" ]; then
+            echo "No JSON files changed, skipping."
+            exit 0
+          fi
+
+          # Load the file → workbook ID mapping
+          MAPPING=$(cat .sigma/workbooks.json)
+
+          for FILE in $CHANGED; do
+            WORKBOOK_ID=$(echo "$MAPPING" | jq -r --arg f "$FILE" '.[$f] // empty')
+
+            if [ -z "$WORKBOOK_ID" ]; then
+              echo "No workbook ID mapped for $FILE, skipping."
+              continue
+            fi
+
+            echo "Updating workbook $WORKBOOK_ID from $FILE..."
+            sigma api workbooks spec update \
+              --params "{\"workbookId\":\"$WORKBOOK_ID\"}" \
+              --json @"$FILE"
+          done
