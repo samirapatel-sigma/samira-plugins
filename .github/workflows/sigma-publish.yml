@@ -17,7 +17,8 @@ jobs:
       - name: Get Sigma access token
         id: auth
         run: |
-          RESPONSE=$(curl -s -X POST "https://api.sigmacomputing.com/v2/auth/token" \
+          BASE_URL="${{ secrets.SIGMA_BASE_URL || 'https://api.sigmacomputing.com' }}"
+          RESPONSE=$(curl -s -X POST "$BASE_URL/v2/auth/token" \
             -H "Content-Type: application/x-www-form-urlencoded" \
             -d "grant_type=client_credentials&client_id=${{ secrets.SIGMA_CLIENT_ID }}&client_secret=${{ secrets.SIGMA_CLIENT_SECRET }}")
           TOKEN=$(echo "$RESPONSE" | jq -r '.access_token // empty')
@@ -26,6 +27,7 @@ jobs:
             exit 1
           fi
           echo "token=$TOKEN" >> $GITHUB_OUTPUT
+          echo "base_url=$BASE_URL" >> $GITHUB_OUTPUT
 
       - name: Update changed workbooks in Sigma
         run: |
@@ -48,7 +50,7 @@ jobs:
 
             echo "Updating workbook $WORKBOOK_ID from $FILE..."
             curl --fail-with-body -X PUT \
-              "https://api.sigmacomputing.com/v2/workbooks/$WORKBOOK_ID/spec" \
+              "${{ steps.auth.outputs.base_url }}/v2/workbooks/$WORKBOOK_ID/spec" \
               -H "Authorization: Bearer ${{ steps.auth.outputs.token }}" \
               -H "Content-Type: application/json" \
               --data-binary @"$FILE"
