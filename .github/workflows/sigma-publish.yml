@@ -17,9 +17,10 @@ jobs:
       - name: Get Sigma access token
         id: auth
         run: |
-          BASE_URL='https://ready-clowns-lead.loca.lt'
+          BASE_URL="${{ secrets.SIGMA_BASE_URL || 'https://api.sigmacomputing.com' }}"
           RESPONSE=$(curl -s -X POST "$BASE_URL/v2/auth/token" \
             -H "Content-Type: application/x-www-form-urlencoded" \
+            -H "bypass-tunnel-reminder: true" \
             -d "grant_type=client_credentials&client_id=${{ secrets.SIGMA_CLIENT_ID }}&client_secret=${{ secrets.SIGMA_CLIENT_SECRET }}")
           TOKEN=$(echo "$RESPONSE" | jq -r '.access_token // empty')
           if [ -z "$TOKEN" ]; then
@@ -53,6 +54,7 @@ jobs:
               "${{ steps.auth.outputs.base_url }}/v2/workbooks/$WORKBOOK_ID/spec" \
               -H "Authorization: Bearer ${{ steps.auth.outputs.token }}" \
               -H "Content-Type: application/json" \
+              -H "bypass-tunnel-reminder: true" \
               --data-binary @"$FILE"
 
             echo "Done: $FILE → $WORKBOOK_ID"
