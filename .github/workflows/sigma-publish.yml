@@ -17,7 +17,7 @@ jobs:
       - name: Get Sigma access token
         id: auth
         run: |
-          BASE_URL="https://untimed-stylized-reaffirm.ngrok-free.dev"
+          BASE_URL="${{ secrets.SIGMA_BASE_URL || 'https://api.sigmacomputing.com' }}"
           RESPONSE=$(curl -s -X POST "$BASE_URL/v2/auth/token" \
             -H "Content-Type: application/x-www-form-urlencoded" \
             -H "bypass-tunnel-reminder: true" \
@@ -46,6 +46,13 @@ jobs:
 
             if [ -z "$WORKBOOK_ID" ]; then
               echo "No workbook mapped for $FILE, skipping."
+              continue
+            fi
+
+            # Only update if file is in spec format (has schemaVersion field)
+            SCHEMA_VERSION=$(jq -r '.schemaVersion // empty' "$FILE")
+            if [ -z "$SCHEMA_VERSION" ]; then
+              echo "Skipping $FILE — not in spec format (missing schemaVersion). Publish from Sigma UI to sync."
               continue
             fi
 
