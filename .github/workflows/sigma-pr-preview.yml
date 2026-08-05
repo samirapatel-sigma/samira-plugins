@@ -14,8 +14,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Get Sigma access token
         id: auth
@@ -39,28 +37,26 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           PR_NUMBER="${{ github.event.number }}"
-          BASE_SHA="${{ github.event.pull_request.base.sha }}"
           APP_URL="${{ secrets.SIGMA_APP_URL }}"
 
-          CHANGED=$(git diff --name-only "$BASE_SHA" HEAD | grep '\.json$' || true)
+          # Use the GitHub API to list changed files — more reliable than git diff
+          # in the merge-commit checkout context that actions/checkout@v4 uses.
+          CHANGED=$(gh api "repos/${{ github.repository }}/pulls/${PR_NUMBER}/files" \
+            --jq '[.[] | select(.filename | endswith(".json")) | .filename] | .[]')
+          echo "Changed JSON files: $CHANGED"
           if [ -z "$CHANGED" ]; then
             echo "No JSON files changed, skipping preview."
             exit 0
           fi
 
-          if [ ! -f .sigma/workbooks.json ]; then
-            echo ".sigma/workbooks.json not found, skipping preview."
-            exit 0
-          fi
-
-          MAPPING=$(cat .sigma/workbooks.json)
           PREVIEW_IDS="[]"
           TABLE_ROWS=""
 
           for FILE in $CHANGED; do
             [ -f "$FILE" ] || continue
 
-            WORKBOOK_ID=$(echo "$MAPPING" | jq -r --arg f "$FILE" '.[$f] // ""')
+            # Workbook ID is embedded in the spec file — no separate mapping needed
+            WORKBOOK_ID=$(jq -r '.workbookId // .id // ""' "$FILE" 2>/dev/null || true)
             [ -n "$WORKBOOK_ID" ] || continue
 
             SCHEMA_VERSION=$(jq -r '.schemaVersion // ""' "$FILE")
