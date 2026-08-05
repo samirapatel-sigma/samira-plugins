@@ -37,7 +37,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           PR_NUMBER="${{ github.event.number }}"
-          APP_URL="${{ secrets.SIGMA_APP_URL }}"
+          APP_URL="http://localhost:3000"
 
           # Use the GitHub API to list changed files — more reliable than git diff
           # in the merge-commit checkout context that actions/checkout@v4 uses.
