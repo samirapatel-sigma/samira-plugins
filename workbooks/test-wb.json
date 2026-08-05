@@ -2,14 +2,14 @@
   "workbookId": "6b32a2d4-d7c0-4daf-be3e-f6e1ff5780c6",
   "name": "test wb",
   "url": "http://127.0.0.1:3000/buildcorp/workbook/test-wb-3ghjP326nCoiVqPEdSDjD0",
-  "documentVersion": 24,
-  "latestDocumentVersion": 25,
+  "documentVersion": 26,
+  "latestDocumentVersion": 26,
   "ownerId": "Edzt8gtpG0sdAXjYW8mWUyl7byoad",
   "folderId": "7328a755-b7f1-45b8-a9fc-7d01ecc4e6a0",
   "createdBy": "Edzt8gtpG0sdAXjYW8mWUyl7byoad",
   "updatedBy": "Edzt8gtpG0sdAXjYW8mWUyl7byoad",
   "createdAt": "2026-07-31T00:52:21.129Z",
-  "updatedAt": "2026-08-05T00:06:31.977Z",
+  "updatedAt": "2026-08-05T00:07:23.820Z",
   "schemaVersion": 1,
   "pages": [
     {
@@ -118,7 +118,7 @@
               "formula": "[PLUGS_ELECTRONICS_HANDS_ON_LAB_DATA/Cust Json]"
             }
           ],
-          "name": "test table published wb - this is  PR 2",
+          "name": "test table published wb - this is first PR 4",
           "order": [
             "inode-5AiZvIHBiUq5V6PIYUgSn/ORDER_NUMBER",
             "inode-5AiZvIHBiUq5V6PIYUgSn/DATE",
