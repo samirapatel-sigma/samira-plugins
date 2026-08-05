@@ -5,6 +5,9 @@ on:
     types: [closed]
     branches: [main]
 
+permissions:
+  contents: write
+
 jobs:
   update-workbooks:
     if: github.event.pull_request.merged == true
@@ -30,7 +33,7 @@ jobs:
           echo "token=$TOKEN" >> $GITHUB_OUTPUT
           echo "base_url=$BASE_URL" >> $GITHUB_OUTPUT
 
-      - name: Update changed workbooks in Sigma
+      - name: Sync changed workbooks with Sigma
         run: |
           CHANGED=$(git diff --name-only HEAD~1 HEAD | grep '\.json$' || true)
 
@@ -39,30 +42,66 @@ jobs:
             exit 0
           fi
 
-          MAPPING=$(cat .sigma/workbooks.json)
+          NEEDS_COMMIT=false
 
           for FILE in $CHANGED; do
-            WORKBOOK_ID=$(echo "$MAPPING" | jq -r --arg f "$FILE" '.[$f] // empty')
+            [ -f "$FILE" ] || continue
+
+            SCHEMA_VERSION=$(jq -r '.schemaVersion // empty' "$FILE" 2>/dev/null || true)
+            if [ -z "$SCHEMA_VERSION" ]; then
+              echo "Skipping $FILE — not in spec format (missing schemaVersion)."
+              continue
+            fi
+
+            WORKBOOK_ID=$(jq -r '.workbookId // .id // empty' "$FILE" 2>/dev/null || true)
 
             if [ -z "$WORKBOOK_ID" ]; then
-              echo "No workbook mapped for $FILE, skipping."
-              continue
+              # No workbook ID — create a new workbook in Sigma
+              echo "Creating new workbook from $FILE..."
+              HTTP_CODE=$(curl -s -o /tmp/sigma_resp.json -w "%{http_code}" -X POST \
+                "${{ steps.auth.outputs.base_url }}/v2/workbooks/spec" \
+                -H "Authorization: Bearer ${{ steps.auth.outputs.token }}" \
+                -H "Content-Type: application/json" \
+                -H "bypass-tunnel-reminder: true" \
+                --data-binary @"$FILE")
+
+              if [ "$HTTP_CODE" != "200" ]; then
+                echo "Failed to create workbook from $FILE (HTTP $HTTP_CODE):"
+                cat /tmp/sigma_resp.json
+                continue
+              fi
+
+              WORKBOOK_ID=$(jq -r '.workbookId // .id // empty' /tmp/sigma_resp.json)
+              if [ -z "$WORKBOOK_ID" ]; then
+                echo "No workbook ID in Sigma response for $FILE, skipping."
+                continue
+              fi
+
+              # Embed workbook ID in the spec and rename the file to <workbookId>.json
+              DIR=$(dirname "$FILE")
+              NEW_FILE="$DIR/$WORKBOOK_ID.json"
+              jq --arg id "$WORKBOOK_ID" '. + {workbookId: $id}' "$FILE" > /tmp/updated_spec.json
+              git rm "$FILE"
+              cp /tmp/updated_spec.json "$NEW_FILE"
+              git add "$NEW_FILE"
+              NEEDS_COMMIT=true
+              echo "Created workbook $WORKBOOK_ID, renamed $FILE → $NEW_FILE"
+            else
+              # Existing workbook — update it
+              echo "Updating workbook $WORKBOOK_ID from $FILE..."
+              curl --fail-with-body -X PUT \
+                "${{ steps.auth.outputs.base_url }}/v2/workbooks/$WORKBOOK_ID/spec" \
+                -H "Authorization: Bearer ${{ steps.auth.outputs.token }}" \
+                -H "Content-Type: application/json" \
+                -H "bypass-tunnel-reminder: true" \
+                --data-binary @"$FILE"
+              echo "Done: $FILE → $WORKBOOK_ID"
             fi
-
-            # Only update if file is in spec format (has schemaVersion field)
-            SCHEMA_VERSION=$(jq -r '.schemaVersion // empty' "$FILE")
-            if [ -z "$SCHEMA_VERSION" ]; then
-              echo "Skipping $FILE — not in spec format (missing schemaVersion). Publish from Sigma UI to sync."
-              continue
-            fi
-
-            echo "Updating workbook $WORKBOOK_ID from $FILE..."
-            curl --fail-with-body -X PUT \
-              "${{ steps.auth.outputs.base_url }}/v2/workbooks/$WORKBOOK_ID/spec" \
-              -H "Authorization: Bearer ${{ steps.auth.outputs.token }}" \
-              -H "Content-Type: application/json" \
-              -H "bypass-tunnel-reminder: true" \
-              --data-binary @"$FILE"
-
-            echo "Done: $FILE → $WORKBOOK_ID"
           done
+
+          if [ "$NEEDS_COMMIT" = "true" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git commit -m "chore: assign workbook IDs after Sigma create"
+            git push origin main
+          fi
