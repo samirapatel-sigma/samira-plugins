@@ -1,0 +1,174 @@
+name: Sigma workbook PR preview
+
+on:
+  pull_request:
+    types: [opened, synchronize, closed]
+    branches: [main]
+
+permissions:
+  pull-requests: write
+
+jobs:
+  create-preview:
+    if: github.event.action != 'closed'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get Sigma access token
+        id: auth
+        run: |
+          BASE_URL="${{ secrets.SIGMA_BASE_URL }}"
+          BASE_URL="${BASE_URL:-https://api.sigmacomputing.com}"
+          RESPONSE=$(curl -s -X POST "$BASE_URL/v2/auth/token" \
+            -H "Content-Type: application/x-www-form-urlencoded" \
+            -H "bypass-tunnel-reminder: true" \
+            -d "grant_type=client_credentials&client_id=${{ secrets.SIGMA_CLIENT_ID }}&client_secret=${{ secrets.SIGMA_CLIENT_SECRET }}")
+          TOKEN=$(echo "$RESPONSE" | jq -r '.access_token // empty')
+          if [ -z "$TOKEN" ]; then
+            echo "Auth failed: $RESPONSE"
+            exit 1
+          fi
+          echo "token=$TOKEN" >> $GITHUB_OUTPUT
+          echo "base_url=$BASE_URL" >> $GITHUB_OUTPUT
+
+      - name: Create preview workbooks and comment on PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          PR_NUMBER="${{ github.event.number }}"
+          BASE_SHA="${{ github.event.pull_request.base.sha }}"
+          APP_URL="${{ secrets.SIGMA_APP_URL }}"
+
+          CHANGED=$(git diff --name-only "$BASE_SHA" HEAD | grep '\.json$' || true)
+          if [ -z "$CHANGED" ]; then
+            echo "No JSON files changed, skipping preview."
+            exit 0
+          fi
+
+          if [ ! -f .sigma/workbooks.json ]; then
+            echo ".sigma/workbooks.json not found, skipping preview."
+            exit 0
+          fi
+
+          MAPPING=$(cat .sigma/workbooks.json)
+          PREVIEW_IDS="[]"
+          TABLE_ROWS=""
+
+          for FILE in $CHANGED; do
+            [ -f "$FILE" ] || continue
+
+            WORKBOOK_ID=$(echo "$MAPPING" | jq -r --arg f "$FILE" '.[$f] // empty')
+            [ -n "$WORKBOOK_ID" ] || continue
+
+            SCHEMA_VERSION=$(jq -r '.schemaVersion // empty' "$FILE")
+            if [ -z "$SCHEMA_VERSION" ]; then
+              echo "Skipping $FILE — not in spec format."
+              continue
+            fi
+
+            ORIGINAL_NAME=$(jq -r '.name // "Workbook"' "$FILE")
+            PREVIEW_NAME="[Preview] PR #${PR_NUMBER} — ${ORIGINAL_NAME}"
+            SPEC=$(jq --arg name "$PREVIEW_NAME" '.name = $name' "$FILE")
+
+            HTTP_CODE=$(curl -s -o /tmp/sigma_resp.json -w "%{http_code}" -X POST \
+              "${{ steps.auth.outputs.base_url }}/v2/workbooks/spec" \
+              -H "Authorization: Bearer ${{ steps.auth.outputs.token }}" \
+              -H "Content-Type: application/json" \
+              -H "bypass-tunnel-reminder: true" \
+              -d "$SPEC")
+
+            if [ "$HTTP_CODE" != "200" ]; then
+              echo "Failed to create preview for $FILE (HTTP $HTTP_CODE):"
+              cat /tmp/sigma_resp.json
+              continue
+            fi
+
+            PREVIEW_ID=$(jq -r '.workbookId // .id // empty' /tmp/sigma_resp.json)
+            URL_ID=$(jq -r '.workbookUrlId // empty' /tmp/sigma_resp.json)
+            [ -n "$PREVIEW_ID" ] || continue
+
+            PREVIEW_IDS=$(echo "$PREVIEW_IDS" | jq --arg id "$PREVIEW_ID" '. + [$id]')
+
+            # Build a clickable link when SIGMA_APP_URL and a URL slug are available
+            if [ -n "$APP_URL" ] && [ -n "$URL_ID" ]; then
+              WORKBOOK_CELL="[Open in Sigma](${APP_URL}/workbook/${URL_ID})"
+            elif [ -n "$APP_URL" ]; then
+              WORKBOOK_CELL="[Open in Sigma](${APP_URL}/workbook/${PREVIEW_ID})"
+            else
+              WORKBOOK_CELL="\`$PREVIEW_ID\`"
+            fi
+
+            TABLE_ROWS="${TABLE_ROWS}\n| \`$FILE\` | ${WORKBOOK_CELL} |"
+            echo "Created preview workbook $PREVIEW_ID for $FILE"
+          done
+
+          # Remove any existing preview comment before posting a fresh one
+          EXISTING_ID=$(gh api "repos/${{ github.repository }}/issues/${PR_NUMBER}/comments" \
+            --jq '[.[] | select(.body | startswith("<!-- sigma-preview -->"))] | first | .id // empty')
+          if [ -n "$EXISTING_ID" ]; then
+            gh api -X DELETE "repos/${{ github.repository }}/issues/comments/${EXISTING_ID}"
+          fi
+
+          PREVIEW_COUNT=$(echo "$PREVIEW_IDS" | jq 'length')
+          if [ "$PREVIEW_COUNT" -gt 0 ]; then
+            IDS_JSON=$(echo "$PREVIEW_IDS" | jq -c '.')
+            printf "<!-- sigma-preview -->\n<!-- sigma-preview-ids: %s -->\n## Sigma preview workbooks\n\n| File | Preview |\n|------|---------|%s\n\nThese workbooks will be deleted when the PR is closed." \
+              "$IDS_JSON" "$TABLE_ROWS" > /tmp/comment.md
+            gh pr comment "$PR_NUMBER" --body-file /tmp/comment.md
+          fi
+
+  cleanup-preview:
+    if: github.event.action == 'closed'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Sigma access token
+        id: auth
+        run: |
+          BASE_URL="${{ secrets.SIGMA_BASE_URL }}"
+          BASE_URL="${BASE_URL:-https://api.sigmacomputing.com}"
+          RESPONSE=$(curl -s -X POST "$BASE_URL/v2/auth/token" \
+            -H "Content-Type: application/x-www-form-urlencoded" \
+            -H "bypass-tunnel-reminder: true" \
+            -d "grant_type=client_credentials&client_id=${{ secrets.SIGMA_CLIENT_ID }}&client_secret=${{ secrets.SIGMA_CLIENT_SECRET }}")
+          TOKEN=$(echo "$RESPONSE" | jq -r '.access_token // empty')
+          if [ -z "$TOKEN" ]; then
+            echo "Auth failed: $RESPONSE"
+            exit 1
+          fi
+          echo "token=$TOKEN" >> $GITHUB_OUTPUT
+          echo "base_url=$BASE_URL" >> $GITHUB_OUTPUT
+
+      - name: Delete preview workbooks
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          PR_NUMBER="${{ github.event.number }}"
+
+          COMMENT=$(gh api "repos/${{ github.repository }}/issues/${PR_NUMBER}/comments" \
+            --jq '[.[] | select(.body | startswith("<!-- sigma-preview -->"))] | first | .body // empty')
+          if [ -z "$COMMENT" ]; then
+            echo "No preview comment found."
+            exit 0
+          fi
+
+          IDS_JSON=$(echo "$COMMENT" | grep -oP '(?<=sigma-preview-ids: )\[.*?\]' || echo '[]')
+
+          echo "$IDS_JSON" | jq -r '.[]' | while read -r PREVIEW_ID; do
+            echo "Deleting preview workbook $PREVIEW_ID..."
+            curl -s -X DELETE \
+              "${{ steps.auth.outputs.base_url }}/v2/workbooks/${PREVIEW_ID}" \
+              -H "Authorization: Bearer ${{ steps.auth.outputs.token }}" \
+              -H "bypass-tunnel-reminder: true"
+            echo "Deleted $PREVIEW_ID"
+          done
+
+          # Update the comment to confirm cleanup
+          COMMENT_ID=$(gh api "repos/${{ github.repository }}/issues/${PR_NUMBER}/comments" \
+            --jq '[.[] | select(.body | startswith("<!-- sigma-preview -->"))] | first | .id // empty')
+          if [ -n "$COMMENT_ID" ]; then
+            gh api -X PATCH "repos/${{ github.repository }}/issues/comments/${COMMENT_ID}" \
+              -f body="<!-- sigma-preview -->\nSigma preview workbooks deleted after PR close."
+          fi
