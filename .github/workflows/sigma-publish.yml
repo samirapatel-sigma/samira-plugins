@@ -47,9 +47,9 @@ jobs:
           for FILE in $CHANGED; do
             [ -f "$FILE" ] || continue
 
-            SCHEMA_VERSION=$(jq -r '.schemaVersion // empty' "$FILE" 2>/dev/null || true)
-            if [ -z "$SCHEMA_VERSION" ]; then
-              echo "Skipping $FILE — not in spec format (missing schemaVersion)."
+            DOC_VERSION=$(jq -r '.documentVersion // empty' "$FILE" 2>/dev/null || true)
+            if [ -z "$DOC_VERSION" ]; then
+              echo "Skipping $FILE — not a Sigma workbook spec (missing documentVersion)."
               continue
             fi
 
@@ -62,6 +62,7 @@ jobs:
                 "${{ steps.auth.outputs.base_url }}/v2/workbooks/spec" \
                 -H "Authorization: Bearer ${{ steps.auth.outputs.token }}" \
                 -H "Content-Type: application/json" \
+                -H "Accept: application/json" \
                 -H "bypass-tunnel-reminder: true" \
                 --data-binary @"$FILE")
 
@@ -93,6 +94,7 @@ jobs:
                 "${{ steps.auth.outputs.base_url }}/v2/workbooks/$WORKBOOK_ID/spec" \
                 -H "Authorization: Bearer ${{ steps.auth.outputs.token }}" \
                 -H "Content-Type: application/json" \
+                -H "Accept: application/json" \
                 -H "bypass-tunnel-reminder: true" \
                 --data-binary @"$FILE"
               echo "Done: $FILE → $WORKBOOK_ID"
