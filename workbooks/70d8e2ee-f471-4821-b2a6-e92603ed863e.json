@@ -1,0 +1,155 @@
+{
+  "workbookId": "70d8e2ee-f471-4821-b2a6-e92603ed863e",
+  "name": "published 1",
+  "url": "http://127.0.0.1:3000/buildcorp/workbook/published-1-3qWfZNhkSYMNW4soyGvwui",
+  "documentVersion": 1,
+  "latestDocumentVersion": 1,
+  "ownerId": "Edzt8gtpG0sdAXjYW8mWUyl7byoad",
+  "folderId": "7328a755-b7f1-45b8-a9fc-7d01ecc4e6a0",
+  "createdBy": "Edzt8gtpG0sdAXjYW8mWUyl7byoad",
+  "updatedBy": "Edzt8gtpG0sdAXjYW8mWUyl7byoad",
+  "createdAt": "2026-08-05T18:52:39.523Z",
+  "updatedAt": "2026-08-05T18:52:39.523Z",
+  "document": {
+    "schemaVersion": 1,
+    "pages": [
+      {
+        "id": "3N8FPjqvKU",
+        "name": "Page 1",
+        "elements": [
+          {
+            "id": "yP9mu1ay9G",
+            "kind": "table",
+            "source": {
+              "connectionId": "750d35b7-7cf5-4651-9329-06a7034bf1d8",
+              "kind": "warehouse-table",
+              "path": [
+                "EXAMPLES",
+                "PLUGS_ELECTRONICS",
+                "PLUGS_ELECTRONICS_HANDS_ON_LAB_DATA"
+              ]
+            },
+            "columns": [
+              {
+                "id": "inode-5AiZvIHBiUq5V6PIYUgSn/ORDER_NUMBER",
+                "formula": "[PLUGS_ELECTRONICS_HANDS_ON_LAB_DATA/Order Number]"
+              },
+              {
+                "id": "inode-5AiZvIHBiUq5V6PIYUgSn/DATE",
+                "formula": "[PLUGS_ELECTRONICS_HANDS_ON_LAB_DATA/Date]"
+              },
+              {
+                "id": "inode-5AiZvIHBiUq5V6PIYUgSn/SKU_NUMBER",
+                "formula": "[PLUGS_ELECTRONICS_HANDS_ON_LAB_DATA/Sku Number]"
+              },
+              {
+                "id": "inode-5AiZvIHBiUq5V6PIYUgSn/QUANTITY",
+                "formula": "[PLUGS_ELECTRONICS_HANDS_ON_LAB_DATA/Quantity]"
+              },
+              {
+                "id": "inode-5AiZvIHBiUq5V6PIYUgSn/COST",
+                "formula": "[PLUGS_ELECTRONICS_HANDS_ON_LAB_DATA/Cost]"
+              },
+              {
+                "id": "inode-5AiZvIHBiUq5V6PIYUgSn/PRICE",
+                "formula": "[PLUGS_ELECTRONICS_HANDS_ON_LAB_DATA/Price]"
+              },
+              {
+                "id": "inode-5AiZvIHBiUq5V6PIYUgSn/PRODUCT_TYPE",
+                "formula": "[PLUGS_ELECTRONICS_HANDS_ON_LAB_DATA/Product Type]"
+              },
+              {
+                "id": "inode-5AiZvIHBiUq5V6PIYUgSn/PRODUCT_FAMILY",
+                "formula": "[PLUGS_ELECTRONICS_HANDS_ON_LAB_DATA/Product Family]"
+              },
+              {
+                "id": "inode-5AiZvIHBiUq5V6PIYUgSn/PRODUCT_LINE",
+                "formula": "[PLUGS_ELECTRONICS_HANDS_ON_LAB_DATA/Product Line]"
+              },
+              {
+                "id": "inode-5AiZvIHBiUq5V6PIYUgSn/BRAND",
+                "formula": "[PLUGS_ELECTRONICS_HANDS_ON_LAB_DATA/Brand]"
+              },
+              {
+                "id": "inode-5AiZvIHBiUq5V6PIYUgSn/PRODUCT_NAME",
+                "formula": "[PLUGS_ELECTRONICS_HANDS_ON_LAB_DATA/Product Name]"
+              },
+              {
+                "id": "inode-5AiZvIHBiUq5V6PIYUgSn/STORE_NAME",
+                "formula": "[PLUGS_ELECTRONICS_HANDS_ON_LAB_DATA/Store Name]"
+              },
+              {
+                "id": "inode-5AiZvIHBiUq5V6PIYUgSn/STORE_KEY",
+                "formula": "[PLUGS_ELECTRONICS_HANDS_ON_LAB_DATA/Store Key]"
+              },
+              {
+                "id": "inode-5AiZvIHBiUq5V6PIYUgSn/STORE_REGION",
+                "formula": "[PLUGS_ELECTRONICS_HANDS_ON_LAB_DATA/Store Region]"
+              },
+              {
+                "id": "inode-5AiZvIHBiUq5V6PIYUgSn/STORE_STATE",
+                "formula": "[PLUGS_ELECTRONICS_HANDS_ON_LAB_DATA/Store State]"
+              },
+              {
+                "id": "inode-5AiZvIHBiUq5V6PIYUgSn/STORE_CITY",
+                "formula": "[PLUGS_ELECTRONICS_HANDS_ON_LAB_DATA/Store City]"
+              },
+              {
+                "id": "inode-5AiZvIHBiUq5V6PIYUgSn/STORE_ZIP_CODE",
+                "formula": "[PLUGS_ELECTRONICS_HANDS_ON_LAB_DATA/Store Zip Code]"
+              },
+              {
+                "id": "inode-5AiZvIHBiUq5V6PIYUgSn/STORE_LATITUDE",
+                "formula": "[PLUGS_ELECTRONICS_HANDS_ON_LAB_DATA/Store Latitude]"
+              },
+              {
+                "id": "inode-5AiZvIHBiUq5V6PIYUgSn/STORE_LONGITUDE",
+                "formula": "[PLUGS_ELECTRONICS_HANDS_ON_LAB_DATA/Store Longitude]"
+              },
+              {
+                "id": "inode-5AiZvIHBiUq5V6PIYUgSn/CUST_KEY",
+                "formula": "[PLUGS_ELECTRONICS_HANDS_ON_LAB_DATA/Cust Key]"
+              },
+              {
+                "id": "inode-5AiZvIHBiUq5V6PIYUgSn/CUSTOMER_NAME",
+                "formula": "[PLUGS_ELECTRONICS_HANDS_ON_LAB_DATA/Customer Name]"
+              },
+              {
+                "id": "inode-5AiZvIHBiUq5V6PIYUgSn/CUST_JSON",
+                "formula": "[PLUGS_ELECTRONICS_HANDS_ON_LAB_DATA/Cust Json]"
+              }
+            ],
+            "name": "published 1",
+            "order": [
+              "inode-5AiZvIHBiUq5V6PIYUgSn/ORDER_NUMBER",
+              "inode-5AiZvIHBiUq5V6PIYUgSn/DATE",
+              "inode-5AiZvIHBiUq5V6PIYUgSn/SKU_NUMBER",
+              "inode-5AiZvIHBiUq5V6PIYUgSn/QUANTITY",
+              "inode-5AiZvIHBiUq5V6PIYUgSn/COST",
+              "inode-5AiZvIHBiUq5V6PIYUgSn/PRICE",
+              "inode-5AiZvIHBiUq5V6PIYUgSn/PRODUCT_TYPE",
+              "inode-5AiZvIHBiUq5V6PIYUgSn/PRODUCT_FAMILY",
+              "inode-5AiZvIHBiUq5V6PIYUgSn/PRODUCT_LINE",
+              "inode-5AiZvIHBiUq5V6PIYUgSn/BRAND",
+              "inode-5AiZvIHBiUq5V6PIYUgSn/PRODUCT_NAME",
+              "inode-5AiZvIHBiUq5V6PIYUgSn/STORE_NAME",
+              "inode-5AiZvIHBiUq5V6PIYUgSn/STORE_KEY",
+              "inode-5AiZvIHBiUq5V6PIYUgSn/STORE_REGION",
+              "inode-5AiZvIHBiUq5V6PIYUgSn/STORE_STATE",
+              "inode-5AiZvIHBiUq5V6PIYUgSn/STORE_CITY",
+              "inode-5AiZvIHBiUq5V6PIYUgSn/STORE_ZIP_CODE",
+              "inode-5AiZvIHBiUq5V6PIYUgSn/STORE_LATITUDE",
+              "inode-5AiZvIHBiUq5V6PIYUgSn/STORE_LONGITUDE",
+              "inode-5AiZvIHBiUq5V6PIYUgSn/CUST_KEY",
+              "inode-5AiZvIHBiUq5V6PIYUgSn/CUSTOMER_NAME",
+              "inode-5AiZvIHBiUq5V6PIYUgSn/CUST_JSON"
+            ],
+            "visibleAsSource": false
+          }
+        ]
+      }
+    ],
+    "kind": "workbook",
+    "layout": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<Page type=\"grid\" gridTemplateColumns=\"repeat(24, 1fr)\" gridTemplateRows=\"auto\" id=\"3N8FPjqvKU\">\n  <LayoutElement elementId=\"yP9mu1ay9G\" gridColumn=\"1 / 25\" gridRow=\"1 / 21\"/>\n</Page>\n"
+  }
+}
