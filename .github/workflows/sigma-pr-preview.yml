@@ -18,7 +18,7 @@ jobs:
       - name: Get Sigma access token
         id: auth
         run: |
-          BASE_URL="https://untimed-stylized-reaffirm.ngrok-free.dev"
+          BASE_URL="${{ secrets.SIGMA_BASE_URL }}"
           BASE_URL="${BASE_URL:-https://api.sigmacomputing.com}"
           RESPONSE=$(curl -s -X POST "$BASE_URL/v2/auth/token" \
             -H "Content-Type: application/x-www-form-urlencoded" \
@@ -37,7 +37,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           PR_NUMBER="${{ github.event.number }}"
-          APP_URL="http://localhost:3000"
+          APP_URL="http://localhost:8000"
 
           # Use the GitHub API to list changed files — more reliable than git diff
           # in the merge-commit checkout context that actions/checkout@v4 uses.
@@ -53,40 +53,62 @@ jobs:
           TABLE_ROWS=""
 
           for FILE in $CHANGED; do
-            [ -f "$FILE" ] || continue
+            echo "--- Processing $FILE ---"
+            if [ ! -f "$FILE" ]; then
+              echo "  File not found in checkout, skipping."
+              continue
+            fi
 
             # Prefer workbook ID embedded in the spec; fall back to the filename (always <workbookId>.json)
             WORKBOOK_ID=$(jq -r '.workbookId // .id // ""' "$FILE" 2>/dev/null || true)
             if [ -z "$WORKBOOK_ID" ]; then
               WORKBOOK_ID=$(basename "$FILE" .json)
             fi
+            echo "  Source workbook ID: $WORKBOOK_ID"
 
             ORIGINAL_NAME=$(jq -r '.name // "Workbook"' "$FILE")
             PREVIEW_NAME="[Preview] PR #${PR_NUMBER} — ${ORIGINAL_NAME}"
-            SPEC=$(jq --arg name "$PREVIEW_NAME" '.name = $name' "$FILE")
+            echo "  Preview name: $PREVIEW_NAME"
+            jq --arg name "$PREVIEW_NAME" '.name = $name' "$FILE" > /tmp/sigma_spec.json
+            echo "  Spec size: $(wc -c < /tmp/sigma_spec.json) bytes"
 
+            echo "  Creating preview workbook via Sigma API..."
             HTTP_CODE=$(curl -s -o /tmp/sigma_resp.json -w "%{http_code}" -X POST \
               "${{ steps.auth.outputs.base_url }}/v2/workbooks/spec" \
               -H "Authorization: Bearer ${{ steps.auth.outputs.token }}" \
               -H "Content-Type: application/json" \
               -H "bypass-tunnel-reminder: true" \
-              -d "$SPEC")
+              --data-binary @/tmp/sigma_spec.json)
 
+            echo "  HTTP $HTTP_CODE"
             if [ "$HTTP_CODE" != "200" ]; then
-              echo "Failed to create preview for $FILE (HTTP $HTTP_CODE):"
-              cat /tmp/sigma_resp.json
+              echo "  Create failed. Response: $(cat /tmp/sigma_resp.json)"
               continue
             fi
 
+            echo "  Response: $(cat /tmp/sigma_resp.json)"
             PREVIEW_ID=$(jq -r '.workbookId // .id // ""' /tmp/sigma_resp.json 2>/dev/null || true)
-            URL_ID=$(jq -r '.workbookUrlId // ""' /tmp/sigma_resp.json 2>/dev/null || true)
-            [ -n "$PREVIEW_ID" ] || continue
+            echo "  Preview workbook ID: $PREVIEW_ID"
+            if [ -z "$PREVIEW_ID" ]; then
+              echo "  No workbook ID in response, skipping."
+              continue
+            fi
+
+            # Fetch the full spec to get the workbook URL (the create response only returns the ID).
+            echo "  Fetching workbook URL..."
+            GET_HTTP_CODE=$(curl -s -o /tmp/sigma_get_resp.json -w "%{http_code}" \
+              "${{ steps.auth.outputs.base_url }}/v2/workbooks/$PREVIEW_ID/spec" \
+              -H "Authorization: Bearer ${{ steps.auth.outputs.token }}" \
+              -H "bypass-tunnel-reminder: true")
+            echo "  GET spec HTTP $GET_HTTP_CODE"
+            WORKBOOK_URL=$(jq -r '.url // ""' /tmp/sigma_get_resp.json 2>/dev/null || true)
+            echo "  Workbook URL: $WORKBOOK_URL"
 
             PREVIEW_IDS=$(echo "$PREVIEW_IDS" | jq --arg id "$PREVIEW_ID" '. + [$id]')
 
-            # Build a clickable link when SIGMA_APP_URL and a URL slug are available
-            if [ -n "$APP_URL" ] && [ -n "$URL_ID" ]; then
-              WORKBOOK_CELL="[Open in Sigma](${APP_URL}/workbook/${URL_ID})"
+            # Build a clickable link when a URL is available.
+            if [ -n "$WORKBOOK_URL" ]; then
+              WORKBOOK_CELL="[Open in Sigma](${WORKBOOK_URL})"
             elif [ -n "$APP_URL" ]; then
               WORKBOOK_CELL="[Open in Sigma](${APP_URL}/workbook/${PREVIEW_ID})"
             else
@@ -94,7 +116,7 @@ jobs:
             fi
 
             TABLE_ROWS="${TABLE_ROWS}\n| \`$FILE\` | ${WORKBOOK_CELL} |"
-            echo "Created preview workbook $PREVIEW_ID for $FILE"
+            echo "  Done: $FILE → $PREVIEW_ID"
           done
 
           # Remove any existing preview comment before posting a fresh one
