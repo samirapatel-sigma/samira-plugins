@@ -86,7 +86,7 @@ jobs:
               continue
             fi
 
-            echo "  Response: $(cat /tmp/sigma_resp.json)"
+            echo "  ** Response on creation: $(cat /tmp/sigma_resp.json) \n** Reponse done"
             PREVIEW_ID=$(jq -r '.workbookId // .id // ""' /tmp/sigma_resp.json 2>/dev/null || true)
             echo "  Preview workbook ID: $PREVIEW_ID"
             if [ -z "$PREVIEW_ID" ]; then
