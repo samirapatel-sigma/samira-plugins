@@ -37,7 +37,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           PR_NUMBER="${{ github.event.number }}"
-          APP_URL="http://localhost:8000"
+          APP_URL="${{ secrets.SIGMA_APP_URL }}"
 
           # Use the GitHub API to list changed files — more reliable than git diff
           # in the merge-commit checkout context that actions/checkout@v4 uses.
@@ -141,7 +141,7 @@ jobs:
       - name: Get Sigma access token
         id: auth
         run: |
-          BASE_URL="https://untimed-stylized-reaffirm.ngrok-free.dev"
+          BASE_URL="${{ secrets.SIGMA_BASE_URL }}"
           BASE_URL="${BASE_URL:-https://api.sigmacomputing.com}"
           RESPONSE=$(curl -s -X POST "$BASE_URL/v2/auth/token" \
             -H "Content-Type: application/x-www-form-urlencoded" \
