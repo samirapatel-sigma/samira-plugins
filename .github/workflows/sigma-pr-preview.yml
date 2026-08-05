@@ -26,7 +26,7 @@ jobs:
             -H "Content-Type: application/x-www-form-urlencoded" \
             -H "bypass-tunnel-reminder: true" \
             -d "grant_type=client_credentials&client_id=${{ secrets.SIGMA_CLIENT_ID }}&client_secret=${{ secrets.SIGMA_CLIENT_SECRET }}")
-          TOKEN=$(echo "$RESPONSE" | jq -r '.access_token // empty')
+          TOKEN=$(echo "$RESPONSE" | jq -r '.access_token // ""')
           if [ -z "$TOKEN" ]; then
             echo "Auth failed: $RESPONSE"
             exit 1
@@ -60,10 +60,10 @@ jobs:
           for FILE in $CHANGED; do
             [ -f "$FILE" ] || continue
 
-            WORKBOOK_ID=$(echo "$MAPPING" | jq -r --arg f "$FILE" '.[$f] // empty')
+            WORKBOOK_ID=$(echo "$MAPPING" | jq -r --arg f "$FILE" '.[$f] // ""')
             [ -n "$WORKBOOK_ID" ] || continue
 
-            SCHEMA_VERSION=$(jq -r '.schemaVersion // empty' "$FILE")
+            SCHEMA_VERSION=$(jq -r '.schemaVersion // ""' "$FILE")
             if [ -z "$SCHEMA_VERSION" ]; then
               echo "Skipping $FILE — not in spec format."
               continue
@@ -86,8 +86,8 @@ jobs:
               continue
             fi
 
-            PREVIEW_ID=$(jq -r '.workbookId // .id // empty' /tmp/sigma_resp.json)
-            URL_ID=$(jq -r '.workbookUrlId // empty' /tmp/sigma_resp.json)
+            PREVIEW_ID=$(jq -r '.workbookId // .id // ""' /tmp/sigma_resp.json 2>/dev/null || true)
+            URL_ID=$(jq -r '.workbookUrlId // ""' /tmp/sigma_resp.json 2>/dev/null || true)
             [ -n "$PREVIEW_ID" ] || continue
 
             PREVIEW_IDS=$(echo "$PREVIEW_IDS" | jq --arg id "$PREVIEW_ID" '. + [$id]')
@@ -107,7 +107,7 @@ jobs:
 
           # Remove any existing preview comment before posting a fresh one
           EXISTING_ID=$(gh api "repos/${{ github.repository }}/issues/${PR_NUMBER}/comments" \
-            --jq '[.[] | select(.body | startswith("<!-- sigma-preview -->"))] | first | .id // empty')
+            --jq '[.[] | select(.body | startswith("<!-- sigma-preview -->"))] | first | .id // ""')
           if [ -n "$EXISTING_ID" ]; then
             gh api -X DELETE "repos/${{ github.repository }}/issues/comments/${EXISTING_ID}"
           fi
@@ -133,7 +133,7 @@ jobs:
             -H "Content-Type: application/x-www-form-urlencoded" \
             -H "bypass-tunnel-reminder: true" \
             -d "grant_type=client_credentials&client_id=${{ secrets.SIGMA_CLIENT_ID }}&client_secret=${{ secrets.SIGMA_CLIENT_SECRET }}")
-          TOKEN=$(echo "$RESPONSE" | jq -r '.access_token // empty')
+          TOKEN=$(echo "$RESPONSE" | jq -r '.access_token // ""')
           if [ -z "$TOKEN" ]; then
             echo "Auth failed: $RESPONSE"
             exit 1
@@ -148,7 +148,7 @@ jobs:
           PR_NUMBER="${{ github.event.number }}"
 
           COMMENT=$(gh api "repos/${{ github.repository }}/issues/${PR_NUMBER}/comments" \
-            --jq '[.[] | select(.body | startswith("<!-- sigma-preview -->"))] | first | .body // empty')
+            --jq '[.[] | select(.body | startswith("<!-- sigma-preview -->"))] | first | .body // ""')
           if [ -z "$COMMENT" ]; then
             echo "No preview comment found."
             exit 0
@@ -167,7 +167,7 @@ jobs:
 
           # Update the comment to confirm cleanup
           COMMENT_ID=$(gh api "repos/${{ github.repository }}/issues/${PR_NUMBER}/comments" \
-            --jq '[.[] | select(.body | startswith("<!-- sigma-preview -->"))] | first | .id // empty')
+            --jq '[.[] | select(.body | startswith("<!-- sigma-preview -->"))] | first | .id // ""')
           if [ -n "$COMMENT_ID" ]; then
             gh api -X PATCH "repos/${{ github.repository }}/issues/comments/${COMMENT_ID}" \
               -f body="<!-- sigma-preview -->\nSigma preview workbooks deleted after PR close."
