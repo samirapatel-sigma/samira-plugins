@@ -59,12 +59,6 @@ jobs:
             WORKBOOK_ID=$(jq -r '.workbookId // .id // ""' "$FILE" 2>/dev/null || true)
             [ -n "$WORKBOOK_ID" ] || continue
 
-            SCHEMA_VERSION=$(jq -r '.schemaVersion // ""' "$FILE")
-            if [ -z "$SCHEMA_VERSION" ]; then
-              echo "Skipping $FILE — not in spec format."
-              continue
-            fi
-
             ORIGINAL_NAME=$(jq -r '.name // "Workbook"' "$FILE")
             PREVIEW_NAME="[Preview] PR #${PR_NUMBER} — ${ORIGINAL_NAME}"
             SPEC=$(jq --arg name "$PREVIEW_NAME" '.name = $name' "$FILE")
