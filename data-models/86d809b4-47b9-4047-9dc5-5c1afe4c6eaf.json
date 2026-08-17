@@ -7,6 +7,7 @@
       "elements": [
         {
           "kind": "table",
+          "id": "niRoace8-T",
           "source": {
             "connectionId": "a6b12ec0-2ce6-47b4-9140-477279f2accb",
             "kind": "warehouse-table",
