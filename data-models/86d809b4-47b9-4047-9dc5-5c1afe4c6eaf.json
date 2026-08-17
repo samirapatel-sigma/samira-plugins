@@ -103,7 +103,7 @@
               "formula": "[PLUGS_ELECTRONICS_HANDS_ON_LAB_DATA/Customer Name]"
             },
             {
-              "id": "inode-ZyEYUark1aX3gPVy7ACpr1/CUST_JSON",
+              "id": "inode-ZyEYUark1aX3gPVy7ACpr/CUST_JSON",
               "formula": "[PLUGS_ELECTRONICS_HANDS_ON_LAB_DATA/Cust Json]"
             }
           ],
@@ -136,7 +136,7 @@
       ]
     }
   ],
-  "kind": "data-model",
+  "kind": "data-model1",
   "schema_version": 1,
   "preview_url": null
 }
