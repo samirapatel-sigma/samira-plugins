@@ -6,7 +6,6 @@
       "name": "Page 1",
       "elements": [
         {
-          "id": "68xH6xO1mS",
           "kind": "table",
           "source": {
             "connectionId": "a6b12ec0-2ce6-47b4-9140-477279f2accb",
@@ -136,7 +135,7 @@
       ]
     }
   ],
-  "kind": "data-model1",
+  "kind": "data-model3",
   "schema_version": 1,
   "preview_url": null
 }
