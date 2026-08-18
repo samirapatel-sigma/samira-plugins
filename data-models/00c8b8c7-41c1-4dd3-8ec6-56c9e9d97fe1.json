@@ -6,130 +6,45 @@
       "name": "Page 1",
       "elements": [
         {
-          "id": "oPK56SBggd",
+          "id": "j4fgACZFdD",
           "kind": "table",
           "source": {
             "connectionId": "a6b12ec0-2ce6-47b4-9140-477279f2accb",
             "kind": "warehouse-table",
             "path": [
               "EXAMPLES",
-              "PLUGS_ELECTRONICS",
-              "PLUGS_ELECTRONICS_HANDS_ON_LAB_DATA"
+              "CENSUS",
+              "CENSUS"
             ]
           },
           "columns": [
             {
-              "id": "inode-ZyEYUark1aX3gPVy7ACpr/ORDER_NUMBER",
-              "formula": "[PLUGS_ELECTRONICS_HANDS_ON_LAB_DATA/Order Number]"
+              "id": "inode-WO6gSZ4h7K8RhUwrPH5ww/FIPS",
+              "formula": "[CENSUS/Fips]"
             },
             {
-              "id": "inode-ZyEYUark1aX3gPVy7ACpr/DATE",
-              "formula": "[PLUGS_ELECTRONICS_HANDS_ON_LAB_DATA/Date]"
+              "id": "inode-WO6gSZ4h7K8RhUwrPH5ww/COUNTY",
+              "formula": "[CENSUS/County]"
             },
             {
-              "id": "inode-ZyEYUark1aX3gPVy7ACpr/SKU_NUMBER",
-              "formula": "[PLUGS_ELECTRONICS_HANDS_ON_LAB_DATA/Sku Number]"
+              "id": "inode-WO6gSZ4h7K8RhUwrPH5ww/STATE",
+              "formula": "[CENSUS/State]"
             },
             {
-              "id": "inode-ZyEYUark1aX3gPVy7ACpr/QUANTITY",
-              "formula": "[PLUGS_ELECTRONICS_HANDS_ON_LAB_DATA/Quantity]"
+              "id": "inode-WO6gSZ4h7K8RhUwrPH5ww/population 2000",
+              "formula": "[CENSUS/Population 2000]"
             },
             {
-              "id": "inode-ZyEYUark1aX3gPVy7ACpr/COST",
-              "formula": "[PLUGS_ELECTRONICS_HANDS_ON_LAB_DATA/Cost]"
-            },
-            {
-              "id": "inode-ZyEYUark1aX3gPVy7ACpr/PRICE",
-              "formula": "[PLUGS_ELECTRONICS_HANDS_ON_LAB_DATA/Price]"
-            },
-            {
-              "id": "inode-ZyEYUark1aX3gPVy7ACpr/PRODUCT_TYPE",
-              "formula": "[PLUGS_ELECTRONICS_HANDS_ON_LAB_DATA/Product Type]"
-            },
-            {
-              "id": "inode-ZyEYUark1aX3gPVy7ACpr/PRODUCT_FAMILY",
-              "formula": "[PLUGS_ELECTRONICS_HANDS_ON_LAB_DATA/Product Family]"
-            },
-            {
-              "id": "inode-ZyEYUark1aX3gPVy7ACpr/PRODUCT_LINE",
-              "formula": "[PLUGS_ELECTRONICS_HANDS_ON_LAB_DATA/Product Line]"
-            },
-            {
-              "id": "inode-ZyEYUark1aX3gPVy7ACpr/BRAND",
-              "formula": "[PLUGS_ELECTRONICS_HANDS_ON_LAB_DATA/Brand]"
-            },
-            {
-              "id": "inode-ZyEYUark1aX3gPVy7ACpr/PRODUCT_NAME",
-              "formula": "[PLUGS_ELECTRONICS_HANDS_ON_LAB_DATA/Product Name]"
-            },
-            {
-              "id": "inode-ZyEYUark1aX3gPVy7ACpr/STORE_NAME",
-              "formula": "[PLUGS_ELECTRONICS_HANDS_ON_LAB_DATA/Store Name]"
-            },
-            {
-              "id": "inode-ZyEYUark1aX3gPVy7ACpr/STORE_KEY",
-              "formula": "[PLUGS_ELECTRONICS_HANDS_ON_LAB_DATA/Store Key]"
-            },
-            {
-              "id": "inode-ZyEYUark1aX3gPVy7ACpr/STORE_REGION",
-              "formula": "[PLUGS_ELECTRONICS_HANDS_ON_LAB_DATA/Store Region]"
-            },
-            {
-              "id": "inode-ZyEYUark1aX3gPVy7ACpr/STORE_STATE",
-              "formula": "[PLUGS_ELECTRONICS_HANDS_ON_LAB_DATA/Store State]"
-            },
-            {
-              "id": "inode-ZyEYUark1aX3gPVy7ACpr/STORE_CITY",
-              "formula": "[PLUGS_ELECTRONICS_HANDS_ON_LAB_DATA/Store City]"
-            },
-            {
-              "id": "inode-ZyEYUark1aX3gPVy7ACpr/STORE_ZIP_CODE",
-              "formula": "[PLUGS_ELECTRONICS_HANDS_ON_LAB_DATA/Store Zip Code]"
-            },
-            {
-              "id": "inode-ZyEYUark1aX3gPVy7ACpr/STORE_LATITUDE",
-              "formula": "[PLUGS_ELECTRONICS_HANDS_ON_LAB_DATA/Store Latitude]"
-            },
-            {
-              "id": "inode-ZyEYUark1aX3gPVy7ACpr/STORE_LONGITUDE",
-              "formula": "[PLUGS_ELECTRONICS_HANDS_ON_LAB_DATA/Store Longitude]"
-            },
-            {
-              "id": "inode-ZyEYUark1aX3gPVy7ACpr/CUST_KEY",
-              "formula": "[PLUGS_ELECTRONICS_HANDS_ON_LAB_DATA/Cust Key]"
-            },
-            {
-              "id": "inode-ZyEYUark1aX3gPVy7ACpr/CUSTOMER_NAME",
-              "formula": "[PLUGS_ELECTRONICS_HANDS_ON_LAB_DATA/Customer Name]"
-            },
-            {
-              "id": "inode-ZyEYUark1aX3gPVy7ACpr/CUST_JSON",
-              "formula": "[PLUGS_ELECTRONICS_HANDS_ON_LAB_DATA/Cust Json]"
+              "id": "inode-WO6gSZ4h7K8RhUwrPH5ww/population 2010",
+              "formula": "[CENSUS/Population 2010]"
             }
           ],
           "order": [
-            "inode-ZyEYUark1aX3gPVy7ACpr/ORDER_NUMBER",
-            "inode-ZyEYUark1aX3gPVy7ACpr/DATE",
-            "inode-ZyEYUark1aX3gPVy7ACpr/SKU_NUMBER",
-            "inode-ZyEYUark1aX3gPVy7ACpr/QUANTITY",
-            "inode-ZyEYUark1aX3gPVy7ACpr/COST",
-            "inode-ZyEYUark1aX3gPVy7ACpr/PRICE",
-            "inode-ZyEYUark1aX3gPVy7ACpr/PRODUCT_TYPE",
-            "inode-ZyEYUark1aX3gPVy7ACpr/PRODUCT_FAMILY",
-            "inode-ZyEYUark1aX3gPVy7ACpr/PRODUCT_LINE",
-            "inode-ZyEYUark1aX3gPVy7ACpr/BRAND",
-            "inode-ZyEYUark1aX3gPVy7ACpr/PRODUCT_NAME",
-            "inode-ZyEYUark1aX3gPVy7ACpr/STORE_NAME",
-            "inode-ZyEYUark1aX3gPVy7ACpr/STORE_KEY",
-            "inode-ZyEYUark1aX3gPVy7ACpr/STORE_REGION",
-            "inode-ZyEYUark1aX3gPVy7ACpr/STORE_STATE",
-            "inode-ZyEYUark1aX3gPVy7ACpr/STORE_CITY",
-            "inode-ZyEYUark1aX3gPVy7ACpr/STORE_ZIP_CODE",
-            "inode-ZyEYUark1aX3gPVy7ACpr/STORE_LATITUDE",
-            "inode-ZyEYUark1aX3gPVy7ACpr/STORE_LONGITUDE",
-            "inode-ZyEYUark1aX3gPVy7ACpr/CUST_KEY",
-            "inode-ZyEYUark1aX3gPVy7ACpr/CUSTOMER_NAME",
-            "inode-ZyEYUark1aX3gPVy7ACpr/CUST_JSON"
+            "inode-WO6gSZ4h7K8RhUwrPH5ww/FIPS",
+            "inode-WO6gSZ4h7K8RhUwrPH5ww/COUNTY",
+            "inode-WO6gSZ4h7K8RhUwrPH5ww/STATE",
+            "inode-WO6gSZ4h7K8RhUwrPH5ww/population 2000",
+            "inode-WO6gSZ4h7K8RhUwrPH5ww/population 2010"
           ]
         }
       ]
