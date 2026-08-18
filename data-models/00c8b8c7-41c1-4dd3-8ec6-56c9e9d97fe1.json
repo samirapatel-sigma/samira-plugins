@@ -1,0 +1,141 @@
+{
+  "schemaVersion": 1,
+  "pages": [
+    {
+      "id": "LhLTP2YKd-",
+      "name": "Page 1",
+      "elements": [
+        {
+          "id": "X39VI_0Pnx",
+          "kind": "table",
+          "source": {
+            "connectionId": "a6b12ec0-2ce6-47b4-9140-477279f2accb",
+            "kind": "warehouse-table",
+            "path": [
+              "FINANCE",
+              "FACTSET",
+              "ENT_ENTITY_COVERAGE"
+            ]
+          },
+          "columns": [
+            {
+              "id": "inode-39OR9TkY8squw6q58QKNTm/FSYM_REGIONAL_ID",
+              "formula": "[ENT_ENTITY_COVERAGE/Fsym Regional Id]"
+            },
+            {
+              "id": "inode-39OR9TkY8squw6q58QKNTm/FSYM_SECURITY_ID",
+              "formula": "[ENT_ENTITY_COVERAGE/Fsym Security Id]"
+            },
+            {
+              "id": "inode-39OR9TkY8squw6q58QKNTm/CUSIP",
+              "formula": "[ENT_ENTITY_COVERAGE/Cusip]"
+            },
+            {
+              "id": "inode-39OR9TkY8squw6q58QKNTm/FACTSET_ENTITY_ID",
+              "formula": "[ENT_ENTITY_COVERAGE/Factset Entity Id]"
+            },
+            {
+              "id": "inode-39OR9TkY8squw6q58QKNTm/ENTITY_NAME",
+              "formula": "[ENT_ENTITY_COVERAGE/Entity Name]"
+            },
+            {
+              "id": "inode-39OR9TkY8squw6q58QKNTm/ENTITY_PROPER_NAME",
+              "formula": "[ENT_ENTITY_COVERAGE/Entity Proper Name]"
+            },
+            {
+              "id": "inode-39OR9TkY8squw6q58QKNTm/PRIMARY_SIC_CODE",
+              "formula": "[ENT_ENTITY_COVERAGE/Primary Sic Code]"
+            },
+            {
+              "id": "inode-39OR9TkY8squw6q58QKNTm/INDUSTRY_CODE",
+              "formula": "[ENT_ENTITY_COVERAGE/Industry Code]"
+            },
+            {
+              "id": "inode-39OR9TkY8squw6q58QKNTm/SECTOR_CODE",
+              "formula": "[ENT_ENTITY_COVERAGE/Sector Code]"
+            },
+            {
+              "id": "inode-39OR9TkY8squw6q58QKNTm/ISO_COUNTRY",
+              "formula": "[ENT_ENTITY_COVERAGE/Iso Country]"
+            },
+            {
+              "id": "inode-39OR9TkY8squw6q58QKNTm/METRO_AREA",
+              "formula": "[ENT_ENTITY_COVERAGE/Metro Area]"
+            },
+            {
+              "id": "inode-39OR9TkY8squw6q58QKNTm/STATE_PROVINCE",
+              "formula": "[ENT_ENTITY_COVERAGE/State Province]"
+            },
+            {
+              "id": "inode-39OR9TkY8squw6q58QKNTm/ZIP_POSTAL_CODE",
+              "formula": "[ENT_ENTITY_COVERAGE/Zip Postal Code]"
+            },
+            {
+              "id": "inode-39OR9TkY8squw6q58QKNTm/WEB_SITE",
+              "formula": "[ENT_ENTITY_COVERAGE/Web Site]"
+            },
+            {
+              "id": "inode-39OR9TkY8squw6q58QKNTm/ENTITY_TYPE",
+              "formula": "[ENT_ENTITY_COVERAGE/Entity Type]"
+            },
+            {
+              "id": "inode-39OR9TkY8squw6q58QKNTm/ENTITY_SUB_TYPE",
+              "formula": "[ENT_ENTITY_COVERAGE/Entity Sub Type]"
+            },
+            {
+              "id": "inode-39OR9TkY8squw6q58QKNTm/YEAR_FOUNDED",
+              "formula": "[ENT_ENTITY_COVERAGE/Year Founded]"
+            },
+            {
+              "id": "inode-39OR9TkY8squw6q58QKNTm/ISO_COUNTRY_INCORP",
+              "formula": "[ENT_ENTITY_COVERAGE/Iso Country Incorp]"
+            },
+            {
+              "id": "inode-39OR9TkY8squw6q58QKNTm/ISO_COUNTRY_COR",
+              "formula": "[ENT_ENTITY_COVERAGE/Iso Country Cor]"
+            },
+            {
+              "id": "inode-39OR9TkY8squw6q58QKNTm/NACE_CODE",
+              "formula": "[ENT_ENTITY_COVERAGE/Nace Code]"
+            },
+            {
+              "id": "inode-39OR9TkY8squw6q58QKNTm/ISO_COUNTRY_TOP_GEOREV",
+              "formula": "[ENT_ENTITY_COVERAGE/Iso Country Top Georev]"
+            },
+            {
+              "id": "inode-39OR9TkY8squw6q58QKNTm/ISO_COUNTRY_COR_GEOREV",
+              "formula": "[ENT_ENTITY_COVERAGE/Iso Country Cor Georev]"
+            }
+          ],
+          "order": [
+            "inode-39OR9TkY8squw6q58QKNTm/FSYM_REGIONAL_ID",
+            "inode-39OR9TkY8squw6q58QKNTm/FSYM_SECURITY_ID",
+            "inode-39OR9TkY8squw6q58QKNTm/CUSIP",
+            "inode-39OR9TkY8squw6q58QKNTm/FACTSET_ENTITY_ID",
+            "inode-39OR9TkY8squw6q58QKNTm/ENTITY_NAME",
+            "inode-39OR9TkY8squw6q58QKNTm/ENTITY_PROPER_NAME",
+            "inode-39OR9TkY8squw6q58QKNTm/PRIMARY_SIC_CODE",
+            "inode-39OR9TkY8squw6q58QKNTm/INDUSTRY_CODE",
+            "inode-39OR9TkY8squw6q58QKNTm/SECTOR_CODE",
+            "inode-39OR9TkY8squw6q58QKNTm/ISO_COUNTRY",
+            "inode-39OR9TkY8squw6q58QKNTm/METRO_AREA",
+            "inode-39OR9TkY8squw6q58QKNTm/STATE_PROVINCE",
+            "inode-39OR9TkY8squw6q58QKNTm/ZIP_POSTAL_CODE",
+            "inode-39OR9TkY8squw6q58QKNTm/WEB_SITE",
+            "inode-39OR9TkY8squw6q58QKNTm/ENTITY_TYPE",
+            "inode-39OR9TkY8squw6q58QKNTm/ENTITY_SUB_TYPE",
+            "inode-39OR9TkY8squw6q58QKNTm/YEAR_FOUNDED",
+            "inode-39OR9TkY8squw6q58QKNTm/ISO_COUNTRY_INCORP",
+            "inode-39OR9TkY8squw6q58QKNTm/ISO_COUNTRY_COR",
+            "inode-39OR9TkY8squw6q58QKNTm/NACE_CODE",
+            "inode-39OR9TkY8squw6q58QKNTm/ISO_COUNTRY_TOP_GEOREV",
+            "inode-39OR9TkY8squw6q58QKNTm/ISO_COUNTRY_COR_GEOREV"
+          ]
+        }
+      ]
+    }
+  ],
+  "kind": "data-model",
+  "schema_version": 1,
+  "preview_url": null
+}
