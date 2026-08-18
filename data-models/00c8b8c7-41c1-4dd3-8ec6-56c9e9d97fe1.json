@@ -6,7 +6,7 @@
       "name": "Page 1",
       "elements": [
         {
-          "id": "j4fgACZFdD",
+          "id": "WJ8XU1KTeF",
           "kind": "table",
           "source": {
             "connectionId": "a6b12ec0-2ce6-47b4-9140-477279f2accb",
@@ -19,32 +19,33 @@
           },
           "columns": [
             {
-              "id": "inode-WO6gSZ4h7K8RhUwrPH5ww/FIPS",
+              "id": "R6yAp9QMkY",
               "formula": "[CENSUS/Fips]"
             },
             {
-              "id": "inode-WO6gSZ4h7K8RhUwrPH5ww/COUNTY",
+              "id": "XRiJ-HLRKo",
               "formula": "[CENSUS/County]"
             },
             {
-              "id": "inode-WO6gSZ4h7K8RhUwrPH5ww/STATE",
+              "id": "Uk2jF78Iqb",
               "formula": "[CENSUS/State]"
             },
             {
-              "id": "inode-WO6gSZ4h7K8RhUwrPH5ww/population 2000",
+              "id": "DacpZ2LQga",
               "formula": "[CENSUS/Population 2000]"
             },
             {
-              "id": "inode-WO6gSZ4h7K8RhUwrPH5ww/population 2010",
+              "id": "Pjwz5Rh5Oz",
               "formula": "[CENSUS/Population 2010]"
             }
           ],
+          "name": "CENSUS 1",
           "order": [
-            "inode-WO6gSZ4h7K8RhUwrPH5ww/FIPS",
-            "inode-WO6gSZ4h7K8RhUwrPH5ww/COUNTY",
-            "inode-WO6gSZ4h7K8RhUwrPH5ww/STATE",
-            "inode-WO6gSZ4h7K8RhUwrPH5ww/population 2000",
-            "inode-WO6gSZ4h7K8RhUwrPH5ww/population 2010"
+            "R6yAp9QMkY",
+            "XRiJ-HLRKo",
+            "Uk2jF78Iqb",
+            "DacpZ2LQga",
+            "Pjwz5Rh5Oz"
           ]
         }
       ]
